@@ -1,0 +1,105 @@
+#N struct template2 float x float y float z float q float zz;
+#N canvas 425 44 448 608 10;
+#X text 18 478 subpatches:;
+#X obj 21 283 pointer;
+#X msg 36 251 next;
+#X text 73 283 <- object that outputs pointers to scalars;
+#N canvas 385 73 307 198 data2 0;
+#X scalar template2 50 150 30 9 0 \;;
+#X scalar template2 200 100 -20 900 0 \;;
+#X scalar template2 100 100 -50 30 0 \;;
+#X restore 19 503 pd data2;
+#N canvas 368 314 428 153 template2 0;
+#X text 13 99 The template for the two scalars \, as in the last patch
+;
+#X obj 15 66 filledpolygon 244 q 5 0 0 20 z 40 0;
+#X obj 14 41 struct template2 float x float y float z float q;
+#X obj 1 1 cnv 15 425 20 empty \$0-pddp.cnv.subheading empty 3 12 0
+14 -261139 -33289 0;
+#X text 7 2 Data Structure Template;
+#X restore 19 526 pd template2;
+#X obj 21 335 get template2 x y z q;
+#X floatatom 21 364 5 0 0 0 - - -, f 5;
+#X floatatom 62 364 5 0 0 0 - - -, f 5;
+#X floatatom 103 364 5 0 0 0 - - -, f 5;
+#X floatatom 144 364 5 0 0 0 - - -, f 5;
+#X msg 21 226 traverse pd-data2;
+#X obj 60 310 print;
+#X text 101 310 <- this gets a bang when we reach the end;
+#X text 177 335 <- this takes incoming pointers;
+#X text 180 349 and outputs the values of x \, y \, z \, and q.;
+#X text 138 226 <- go to head of list (click first);
+#X text 76 251 <- output next item (click 4 times);
+#X text 19 36 The simplest thing you can do with a collection of scalars
+(a list) is to traverse it \, getting the numbers back out. This is
+done using two objects \, "pointer" which does the traversal \, and
+"get" which \, given a pointer to a scalar \, extracts numeric quantities
+from it.;
+#X obj 1 1 cnv 15 445 20 empty \$0-pddp.cnv.header getting_data 20
+10 1 18 -261139 -33289 0;
+#X obj 407 2 pddp/pddplink http://puredata.info/dev/pddp -text pddp
+;
+#X obj 1 586 cnv 15 445 20 empty \$0-pddp.cnv.footer empty 20 12 0
+14 -233017 -33289 0;
+#N canvas 45 271 494 284 META 0;
+#X text 12 105 WEBSITE http://crca.ucsd.edu/~msp/;
+#X text 12 85 AUTHOR Miller Puckette;
+#X text 12 65 LIBRARY PDDP;
+#X text 12 25 LICENSE SIBSD;
+#X text 12 125 HELP_PATCH_AUTHORS Updated for release 0.32. Jonathan
+Wilkes revised the patch to conform to the PDDP template for Pd version
+0.42.;
+#X text 12 45 DESCRIPTION getting data;
+#X text 12 5 KEYWORDS data_structure tutorial;
+#X restore 392 588 pd META;
+#N canvas 13 202 428 190 References 0;
+#X obj 1 1 cnv 15 425 20 empty \$0-pddp.cnv.subheading empty 3 12 0
+14 -261139 -33289 0;
+#X text 7 2 getting data from scalars- Related Help Documents;
+#X restore 103 588 pd References;
+#X obj 6 588 pddp/pddplink ../5.reference/pddp/help.pd -text help;
+#X text 19 100 You can send the [pointer] object a "traverse" message
+to point it to the head of the list. The argument "pd-data2" indicates
+the Pd window named "data2." The head of the list means \, not the
+first scalar in the list \, but the position before the first scalar
+\, which is a valid pointer in Pd but has no data or template.;
+#X text 18 175 The "next" message tells the [pointer] object to go
+to the next scalar in the list and output it. If there are no more
+\, "pointer" outputs a bang at right.;
+#X text 18 394 The [get] object takes a pointer \, checks that its
+template agrees with what [get] is expecting \, i.e. \, "template2"
+\, and if so outputs the values of x \, y \, z \, and q in the usual
+reverse order.;
+#X text 18 447 The pointer sent from [pointer] to [get] is an elementary
+Pd type on a level with "float" and "symbol".;
+#N canvas 42 312 428 290 init 0;
+#X obj 46 179 pointer;
+#X obj 27 85 t b b b;
+#X msg 27 58 bang;
+#X obj 27 31 loadbang;
+#X text 73 58 click here to re-initialize;
+#X text 28 262 Explained later...;
+#X obj 27 231 append template2 x y z q;
+#X msg 66 112 \; pd-data2 clear;
+#X msg 46 152 traverse pd-data2 \, bang;
+#X msg 27 206 50 150 30 9 \, 200 100 -20 900 \, 100 100 -50 30;
+#X obj 1 1 cnv 15 425 20 empty \$0-pddp.cnv.subheading empty 3 12 0
+14 -261139 -33289 0;
+#X text 7 2 Data Structure Initialization;
+#X connect 0 0 6 4;
+#X connect 1 0 9 0;
+#X connect 1 1 8 0;
+#X connect 1 2 7 0;
+#X connect 2 0 1 0;
+#X connect 3 0 2 0;
+#X connect 8 0 0 0;
+#X connect 9 0 6 0;
+#X restore 19 548 pd init;
+#X connect 1 0 6 0;
+#X connect 1 1 12 0;
+#X connect 2 0 1 0;
+#X connect 6 0 7 0;
+#X connect 6 1 8 0;
+#X connect 6 2 9 0;
+#X connect 6 3 10 0;
+#X connect 11 0 1 0;

@@ -1,0 +1,100 @@
+#N canvas 425 44 448 503 10;
+#X obj 33 305 hip~ 10;
+#X floatatom 251 216 0 0 0 0 - - -;
+#X obj 251 264 line~;
+#X obj 251 240 pack 0 100;
+#X floatatom 176 191 0 0 0 0 - - -;
+#X floatatom 295 297 0 0 0 0 - - -;
+#X obj 295 369 line~;
+#X obj 295 345 pack 0 100;
+#X obj 295 321 * 0.01;
+#X floatatom 94 166 0 0 0 0 - - -;
+#X obj 94 237 line~;
+#X obj 94 213 pack 0 100;
+#X obj 33 257 *~;
+#X obj 33 281 cos~;
+#X floatatom 33 134 0 0 0 0 - - -;
+#X obj 33 158 mtof;
+#X obj 33 182 * 0.5;
+#X obj 33 329 clip~ -0.2 0.2;
+#X obj 94 189 * 0.01;
+#X obj 33 353 +~;
+#X obj 281 395 *~;
+#X obj 176 287 *~;
+#X obj 176 215 / 100;
+#X obj 33 377 hip~ 5;
+#X obj 176 263 +~ 1;
+#X obj 176 239 osc~ 0;
+#X obj 176 311 +~ 1.46;
+#X text 122 165 <-- timbre;
+#X text 58 135 <-- pitch;
+#X text 206 191 <-- cycle frequency (hundredths);
+#X text 277 217 <-- cycle depth (msec);
+#X obj 33 206 osc~ 0;
+#X obj 32 409 output~;
+#X obj 176 335 vd~ G03-del;
+#X obj 281 443 delwrite~ G03-del 1000;
+#X obj 281 419 clip~ -1 1;
+#X obj 1 1 cnv 15 445 20 empty \$0-pddp.cnv.header variable_delays
+20 10 1 18 -261139 -33289 0;
+#X obj 407 2 pddp/pddplink http://puredata.info/dev/pddp -text pddp
+;
+#X text 343 309 (hundredths);
+#X text 322 297 <-- feedback;
+#X obj 1 481 cnv 15 445 20 empty \$0-pddp.cnv.footer empty 20 12 0
+14 -233017 -33289 0;
+#N canvas 44 246 494 284 META 0;
+#X text 12 105 WEBSITE http://crca.ucsd.edu/~msp/;
+#X text 12 85 AUTHOR Miller Puckette;
+#X text 12 65 LIBRARY PDDP;
+#X text 12 25 LICENSE SIBSD;
+#X text 12 125 HELP_PATCH_AUTHORS Updated for release 0.37. Jonathan
+Wilkes revised the patch to conform to the PDDP template for Pd version
+0.42.;
+#X text 12 45 DESCRIPTION variable delays;
+#X text 12 5 KEYWORDS signal nonlocal tutorial;
+#X restore 392 483 pd META;
+#N canvas 13 202 428 190 References 0;
+#X obj 1 1 cnv 15 425 20 empty \$0-pddp.cnv.subheading empty 3 12 0
+14 -261139 -33289 0;
+#X text 7 2 variable delays- Related Help Documents;
+#X text 19 37 links:;
+#X restore 103 483 pd References;
+#X obj 6 483 pddp/pddplink ../5.reference/pddp/help.pd -text help;
+#X text 19 37 This is a fuzzed FM generator going into a delay loop
+\, this time using a variable delay object-- [vd~]. You can get several
+interesting effects this way. We have taken the precaution of clipping
+inside the loop to avoid instabilities. You can push the loop gain
+past 1 if you want \, it will just oscillate.;
+#X connect 0 0 17 0;
+#X connect 1 0 3 0;
+#X connect 2 0 21 1;
+#X connect 3 0 2 0;
+#X connect 4 0 22 0;
+#X connect 5 0 8 0;
+#X connect 6 0 20 1;
+#X connect 7 0 6 0;
+#X connect 8 0 7 0;
+#X connect 9 0 18 0;
+#X connect 10 0 12 1;
+#X connect 11 0 10 0;
+#X connect 12 0 13 0;
+#X connect 13 0 0 0;
+#X connect 14 0 15 0;
+#X connect 15 0 16 0;
+#X connect 16 0 31 0;
+#X connect 17 0 19 0;
+#X connect 18 0 11 0;
+#X connect 19 0 23 0;
+#X connect 20 0 35 0;
+#X connect 21 0 26 0;
+#X connect 22 0 25 0;
+#X connect 23 0 20 0;
+#X connect 23 0 32 0;
+#X connect 23 0 32 1;
+#X connect 24 0 21 0;
+#X connect 25 0 24 0;
+#X connect 26 0 33 0;
+#X connect 31 0 12 0;
+#X connect 33 0 19 1;
+#X connect 35 0 34 0;

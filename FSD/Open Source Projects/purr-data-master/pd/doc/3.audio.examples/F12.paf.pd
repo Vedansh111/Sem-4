@@ -1,0 +1,249 @@
+#N canvas 312 25 692 652 10;
+#X obj 98 540 cos~;
+#X obj 98 517 *~;
+#X obj 141 540 cos~;
+#X obj 197 474 wrap~;
+#X obj 161 474 -~;
+#X obj 141 517 +~;
+#X obj 141 570 -~;
+#X obj 141 602 *~;
+#X obj 97 602 +~;
+#X obj 160 447 samphold~;
+#X floatatom 159 325 4 0 500 0 - - -, f 4;
+#X obj 159 348 / 10;
+#X obj 159 396 line~;
+#X obj 159 373 pack 0 50;
+#X obj 99 393 phasor~;
+#X floatatom 99 372 4 0 0 0 - - -, f 4;
+#X text 79 353 fundamental;
+#X text 333 410 index;
+#X text 333 427 (percent);
+#X floatatom 333 448 4 0 500 0 - - -, f 4;
+#X obj 333 494 line~;
+#X obj 254 514 *~;
+#X obj 333 471 pack 0 50;
+#N canvas 0 0 450 300 (subpatch) 0;
+#X array bell-curve 200 float 1 black black;
+#A 0 1.12535e-07 1.54727e-07 2.12059e-07 2.89706e-07 3.94519e-07 5.35535e-07
+7.24633e-07 9.77371e-07 1.31404e-06 1.76105e-06 2.35258e-06 3.13275e-06
+4.15832e-06 5.50199e-06 7.25659e-06 9.54016e-06 1.25023e-05 1.63317e-05
+2.1266e-05 2.76026e-05 3.57128e-05 4.60584e-05 5.92113e-05 7.58768e-05
+9.69224e-05 0.00012341 0.000156634 0.000198167 0.000249912 0.000314163
+0.000393669 0.000491721 0.000612231 0.000759842 0.000940028 0.00115923
+0.00142498 0.00174605 0.00213263 0.00259648 0.00315111 0.00381201 0.00459678
+0.0055254 0.0066204 0.00790705 0.0094136 0.0111714 0.013215 0.0155826
+0.0183156 0.0214592 0.0250621 0.0291763 0.0338573 0.0391639 0.0451575
+0.0519019 0.0594631 0.0679081 0.0773047 0.0877205 0.0992216 0.111872
+0.125732 0.140858 0.1573 0.1751 0.194291 0.214896 0.236928 0.260383
+0.285247 0.311486 0.339053 0.367879 0.397882 0.428956 0.46098 0.493812
+0.527292 0.561244 0.595473 0.62977 0.663916 0.697676 0.730811 0.763074
+0.794216 0.823987 0.852144 0.878447 0.902668 0.924595 0.944027 0.960789
+0.974725 0.985703 0.99362 0.998401 1 0.998401 0.99362 0.985703 0.974725
+0.960789 0.944027 0.924595 0.902668 0.878447 0.852144 0.823987 0.794216
+0.763074 0.730811 0.697676 0.663916 0.62977 0.595473 0.561244 0.527292
+0.493812 0.46098 0.428956 0.397882 0.367879 0.339053 0.311486 0.285247
+0.260383 0.236928 0.214896 0.194291 0.1751 0.1573 0.140858 0.125732
+0.111872 0.0992216 0.0877205 0.0773047 0.0679081 0.0594631 0.0519019
+0.0451575 0.0391639 0.0338573 0.0291763 0.0250621 0.0214592 0.0183156
+0.0155826 0.013215 0.0111714 0.0094136 0.00790705 0.0066204 0.0055254
+0.00459678 0.00381201 0.00315111 0.00259648 0.00213263 0.00174605 0.00142498
+0.00115923 0.000940028 0.000759842 0.000612231 0.000491721 0.000393669
+0.000314163 0.000249912 0.000198167 0.000156634 0.00012341 9.69224e-05
+7.58768e-05 5.92113e-05 4.60584e-05 3.57128e-05 2.76026e-05 2.1266e-05
+1.63317e-05 1.25023e-05 9.54016e-06 7.25659e-06 5.50199e-06 4.15832e-06
+3.13275e-06 2.35258e-06 1.76105e-06 1.31404e-06 9.77371e-07 7.24633e-07
+5.35535e-07 3.94519e-07 2.89706e-07 2.12059e-07 1.54727e-07;
+#X coords 0 1 199 0 200 140 1;
+#X restore 432 266 graph;
+#N canvas 94 264 600 388 make-table 0;
+#X msg 81 44 bang;
+#X obj 81 73 t b b;
+#X obj 159 142 f;
+#X obj 197 142 + 1;
+#X msg 175 112 0;
+#X obj 81 102 until;
+#X obj 161 177 t f f;
+#X obj 76 306 tabwrite bell-curve;
+#X obj 52 270 expr exp(-$f1*$f1);
+#X obj 63 168 sel 199;
+#X obj 51 241 expr ($f1-100)/25;
+#X connect 0 0 1 0;
+#X connect 1 0 5 0;
+#X connect 1 1 4 0;
+#X connect 2 0 3 0;
+#X connect 2 0 6 0;
+#X connect 2 0 9 0;
+#X connect 3 0 2 1;
+#X connect 4 0 2 1;
+#X connect 5 0 2 0;
+#X connect 6 0 10 0;
+#X connect 6 1 7 1;
+#X connect 8 0 7 0;
+#X connect 9 0 5 1;
+#X connect 10 0 8 0;
+#X restore 496 226 pd make-table;
+#X obj 254 491 cos~;
+#X obj 254 468 -~ 0.25;
+#X obj 254 537 +~ 100;
+#X obj 254 560 tabread4~ bell-curve;
+#X obj 125 634 *~;
+#X text 286 577 waveshaper;
+#X text 430 409 0;
+#X text 621 408 200;
+#N canvas 0 0 450 300 (subpatch) 0;
+#X array F12-spectrum 259 float 0 black black;
+#X coords 0 0.51 258 -0.008 256 130 1;
+#X restore 406 48 graph;
+#X text 403 180 0;
+#X text 487 184 -- frequency --;
+#X text 629 181 2700;
+#X obj 125 706 output~;
+#X obj 124 675 hip~;
+#N canvas 122 211 558 609 fft 0;
+#X obj 23 55 inlet~;
+#X obj 210 303 inlet;
+#X obj 27 215 rfft~;
+#X obj 27 248 *~;
+#X obj 58 248 *~;
+#X obj 27 278 sqrt~;
+#X obj 334 200 block~ 4096 1;
+#X obj 27 304 biquad~ 0 0 0 0 1;
+#X text 91 216 Fourier series;
+#X text 96 269 magnitude;
+#X text 94 254 calculate;
+#X text 21 3 This subpatch computes the spectrum of the incoming signal
+with a (rectangular windowed) FFT. FFTs aren't properly introduced
+until much later.;
+#X text 83 61 signal to analyze;
+#X text 195 255 delay two samples;
+#X text 193 273 for better graphing;
+#X obj 292 79 samplerate~;
+#X obj 240 352 metro 500;
+#X obj 240 329 inlet;
+#X text 293 327 toggle to graph repeatedly;
+#X text 264 303 bang to graph once;
+#X obj 27 328 /~ 4096;
+#X obj 292 54 bang~;
+#X msg 211 413 \; pd dsp 1;
+#X obj 292 102 / 4096;
+#X obj 58 135 osc~;
+#X obj 58 163 +~ 1;
+#X obj 28 188 *~;
+#X text 113 138 hanning window;
+#X obj 254 79 0.5;
+#X obj 240 390 tabwrite~ F12-spectrum;
+#X connect 0 0 26 0;
+#X connect 1 0 22 0;
+#X connect 1 0 29 0;
+#X connect 2 0 3 0;
+#X connect 2 0 3 1;
+#X connect 2 1 4 0;
+#X connect 2 1 4 1;
+#X connect 3 0 5 0;
+#X connect 4 0 5 0;
+#X connect 5 0 7 0;
+#X connect 7 0 20 0;
+#X connect 15 0 23 0;
+#X connect 16 0 29 0;
+#X connect 17 0 16 0;
+#X connect 17 0 22 0;
+#X connect 20 0 29 0;
+#X connect 21 0 15 0;
+#X connect 21 0 28 0;
+#X connect 23 0 24 0;
+#X connect 24 0 25 0;
+#X connect 25 0 26 1;
+#X connect 26 0 2 0;
+#X connect 28 0 24 1;
+#X restore 178 675 pd fft;
+#X obj 211 631 bng 18 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X obj 211 652 tgl 18 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
+1;
+#X text 232 651 <-- repeatedly;
+#X text 233 631 <-- graph once;
+#X text 19 46 Instead of using the two cosines as FM carrier oscillators
+\, we can use them as ring modulators for a natural or synthetic tone.
+Here we use waveshaping - to wit \, a sinusoid looking up a Gaussian
+bell curve. This has the nice properties that the partials are always
+positive cosines in phase \, and the spectrum spreads out smoothly
+as the index changes.;
+#X obj 254 442 *~ 0.5;
+#X obj 1 1 cnv 15 445 20 empty \$0-pddp.cnv.header PAF: 20 10 1 18
+-261139 -33289 0;
+#X obj 407 2 pddp/pddplink http://puredata.info/dev/pddp -text pddp
+;
+#X text 38 26 two-cosine ring modulator for waveshaper;
+#X text 19 140 For phase coherency \, the waveshaper and the cosine
+pair are driven from the same [phasor~] object. Since the waveshaping
+is done using a symmetric curve \, its output is at double the frequency
+of the input. So for each cycle of the phasor we compute a half-cycle
+of the sine function (by multiplying by 0.5 and subtracting 0.25 before
+the cosine lookup). We center the cosine output for lookup in a 200-point
+table containing a bell curve.;
+#X text 18 248 Then with [*~] we do the ring modulation and we're done.
+This is the PAF (phase-aligned formant) synthesis algorithm (patented
+1993 by IRCAM).;
+#X text 157 290 center frequency;
+#X text 157 305 (tenths of fundamental);
+#X text 16 633 ring mod step -->;
+#X obj 1 771 cnv 15 445 20 empty \$0-pddp.cnv.footer empty 20 12 0
+14 -233017 -33289 0;
+#N canvas 44 246 494 284 META 0;
+#X text 12 125 WEBSITE http://crca.ucsd.edu/~msp/;
+#X text 12 105 AUTHOR Miller Puckette;
+#X text 12 85 LIBRARY PDDP;
+#X text 12 5 GENRE tutorial;
+#X text 12 45 LICENSE SIBSD;
+#X text 12 145 HELP_PATCH_AUTHORS Updated for release 0.37. Jonathan
+Wilkes revised the patch to conform to the PDDP template for Pd version
+0.42.;
+#X text 12 25 KEYWORDS signal;
+#X text 12 65 DESCRIPTION two-cosine ring modulator for waveshaper
+;
+#X restore 392 773 pd META;
+#N canvas 13 202 428 190 References 0;
+#X obj 1 1 cnv 15 425 20 empty \$0-pddp.cnv.subheading empty 3 12 0
+14 -261139 -33289 0;
+#X text 7 2 PAF- Related Help Documents;
+#X text 19 37 links:;
+#X restore 103 773 pd References;
+#X obj 6 773 pddp/pddplink ../5.reference/pddp/help.pd -text help;
+#X connect 0 0 6 1;
+#X connect 0 0 8 0;
+#X connect 1 0 5 0;
+#X connect 1 0 0 0;
+#X connect 2 0 6 0;
+#X connect 3 0 4 1;
+#X connect 3 0 7 1;
+#X connect 4 0 1 1;
+#X connect 5 0 2 0;
+#X connect 6 0 7 0;
+#X connect 7 0 8 1;
+#X connect 8 0 29 0;
+#X connect 9 0 4 0;
+#X connect 9 0 3 0;
+#X connect 10 0 11 0;
+#X connect 11 0 13 0;
+#X connect 12 0 9 0;
+#X connect 13 0 12 0;
+#X connect 14 0 9 1;
+#X connect 14 0 5 1;
+#X connect 14 0 1 0;
+#X connect 14 0 45 0;
+#X connect 15 0 14 0;
+#X connect 19 0 22 0;
+#X connect 20 0 21 1;
+#X connect 21 0 27 0;
+#X connect 22 0 20 0;
+#X connect 25 0 21 0;
+#X connect 26 0 25 0;
+#X connect 27 0 28 0;
+#X connect 28 0 29 1;
+#X connect 29 0 38 0;
+#X connect 29 0 39 0;
+#X connect 38 0 37 0;
+#X connect 38 0 37 1;
+#X connect 40 0 39 1;
+#X connect 41 0 39 2;
+#X connect 45 0 26 0;

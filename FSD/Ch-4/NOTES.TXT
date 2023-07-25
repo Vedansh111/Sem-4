@@ -1,0 +1,148 @@
+Express.js:
+
+-it is a node.js framework n is like an additional module of nodejs.
+-it is less complex than node.
+
+to install:-
+npm install express
+npm init
+
+features of express js:
+-building dynamic website
+-creating full stack web apps
+-by using this js, it is more faster than node and require less coding.
+
+methods of expres.js:-
+
+1-app.listen(port,callback):
+
+->it is used to find your service on your perticular port no.
+
+2-app.get('page-name',callback)
+
+->the name of page and print content of web page
+->callback func has 2 parameters req,res   
+req = http request n has property for request query parameters, http headers
+res= http response
+
+3-response.send('string')
+
+-> it gives content to protin on browser
+
+4-response.set('content-type','text/html')
+
+Task 1:-
+Create web page using express on which homepage display 'homepage' in big blue font.
+Student page shows 'welcome students' and about page shows 'about us' in green italic font and if page not found then write pagenot found.
+
+how to parse json obj:-
+you can your this method to pass json obj but you need to manually set content type app/json and use json.stringfy.
+
+to pass json response in express, you can use response.json method
+
+Task 2:-
+write expres script to define array of 3 obj having members name and age.Sort this obj accorgind to age and name must be sorted. If user request sorted name to url then all names should be printed accourding to ascending order of age.
+
+->How to link HTML,CSS & JS file:
+
+1- express.static(folder-name): to open static file such as images,css n html. This work as a built in middle ware fucntion 
+
+2- app.use(express.static("folder")): this function opens the corresponding resources and resource of the file and use it.
+
+Task-3:
+write a xyz.html and new1.css in src folder create 1.js and draw table with 1 col red , green , blue using external css.
+
+Get method is used to send only limited amount of data because data is send into the header.
+
+
+Using post method you can send large amount of data because data is send in the body and is secure.
+
+npm install body-parser
+
+-app.use(bodyParser.urlencoded({extended:false}))
+urlencoded is a built-in function which parse the urlencoded payloads and it based on body parts.
+
+Task-4:
+write express.js script to get form data using post method and display in json format in next page using name process.
+
+Task-5:
+write express.js script to perform following:
+-create html file ljform.html, it constains username,password,submit data should be submited by http post method
+-submit button is of black color with white text, use external css file. On the home page form should be displayed and whlite submitting the form on the next page login if username is admin it will display welcome admin in red color else display please login with admin name.
+
+Task-6:
+write express.js script to perform following:
+-write html file to create 2 input filed with number type, one dropdown box contain options like add,sub,mul,div and one submit button.
+-now input filed must be contain the values greater than 0 else it will give msg please enter the vaild nubmer also user must sekect any of the formulate from dropdown bix else give a msg you have not slecetd formulae, this msg will be disokayed in /calsy.
+-if one formulae is selected and no. are enterd then respec. calculation will be perfomred on /calsy page.
+use get method to request data 
+
+Middleware:-
+-it helps to authenticate between req,res.
+-express in an routing and middleware frame work for handling the different routing of web page and it works between the req n res side.
+-middleware gets exiquted after the server receives the request and before the controler actions send the response. It has access to the request, req obj, res obj and next. It can process the request beefore the server sends the response.
+
+Advantages of middleware:
+-it can process req obj multiple times before the server works for that req.
+-it can be used to add login and authentication functionality.
+-it improves client side rendering performance.
+-it helps for optimisation and better performance.
+
+Task-7:
+write express script to load an html file having username,pass and submit button. On clicking to the submit button, it should jump check page using post method. If username is admin, jump on next middleware to print welcome admin else stay on same middleware to print warning msg in red color.
+
+
+Cookies:-
+-They are simple small data that are sent to the client with a server request and stored on client side. Every time user loads th website back this cookie is sent with the request.
+
+1-import cookie-parser module
+var cp=require('cookie-parser')
+
+2- to set cookie and add cookie
+res.cookie('name','value','expiry-date')
+
+->to request cookie:
+console.log(req.cookie)
+
+-> to clear cookie:
+res.clearcookie('cookie-name')
+
+1. req.cookie()
+req.cookie('name','value',{e:new Date(Date.now+10000)})
+-to sent and fetch the value of cookie if you want a specific cookie then you can retrieve by appending the name of cookie.
+
+2. res.clearcookie()
+to clear the cookies
+
+npm install cookie-parser
+
+Task-8:
+Write a script to create login form om index.html file after clicking submit button it should jump to next page and value of username should be stored in cookie. Perform task using http get method. Observe and check inside the browser that cookie is stored perfectly or not.
+
+Session handling in express:-
+Since http is a stateless protocol to associatate a request to any other request, you need a way to store user data between htto request cookies and url parameters are suitable ways to transport data between client and server but they are readable on client side. Using session we can solve this problem by assigning the client an id and it makes all futher request using that id only.
+
+
+npm install express-session
+
+-dont save session if not modified(re)
+-save unintiliased
+-dont create session if something is not stored
+-if secret is changed, the session is considered fresh.
+
+Task-9:
+Write express js script to perform task:
+-create html file having name, email n checkbox for subscribtion
+-html file will be loaded on home, email n name field are required
+-on login, welcome user and id data should be printed
+-if user chekc the subscription, then thanks fir subscribtion msg print and logout will be display under msg.
+-if user clicks logout, user will be retyrned to home page.
+-if username has not opted for the subscribtion then you can subscribtion msg will be printed and subscribtion link will be display under the msg.
+
+Task-10:
+You have been assigned to develop a user feedback form for website using expressjs and cookies.
+-create form with name,email,msg textarea, rating radio button-bad avg,good,very good,excellent
+-when the user submit form, store their feedback information name email msg n rating in a cookie named feedback that expires in 10 sec.
+-display confirmation msg to the user after succeffuly submitting the form and create a link to display the feedback details stored in feedback cookie.
+-when the user click to the link retreive the feedback info from the cookie and display it in the page also include link on the feedback details page to logout.
+-when user click the link he is redirected to the homepage.

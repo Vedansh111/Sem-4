@@ -1,0 +1,103 @@
+#N canvas 425 28 448 624 10;
+#X floatatom 332 260 0 0 100 0 - - -;
+#X obj 21 417 +~;
+#X text 21 49 If you're writing to and reading from a delay line \,
+you have to get the write sorted before the read or else you'll never
+get less than a block's delay. This patch compares a "wrong" flanger
+with a "right" one:;
+#X obj 56 503 *~;
+#X obj 56 479 -~;
+#N canvas 0 0 600 400 delay-writer 0;
+#X obj 96 107 inlet~;
+#X obj 96 180 outlet~;
+#X obj 116 144 delwrite~ G05-d2 1000;
+#X connect 0 0 1 0;
+#X connect 0 0 2 0;
+#X restore 235 396 pd delay-writer;
+#N canvas 0 0 280 330 delay-reader 0;
+#X obj 96 107 inlet~;
+#X obj 89 267 outlet~;
+#X obj 112 163 inlet~;
+#X obj 89 237 +~;
+#X obj 112 198 vd~ G05-d2;
+#X connect 0 0 3 0;
+#X connect 2 0 4 0;
+#X connect 3 0 1 0;
+#X connect 4 0 3 1;
+#X restore 244 424 pd delay-reader;
+#X obj 21 503 +~;
+#X obj 332 296 / 44.1;
+#X obj 21 537 output~;
+#X obj 97 503 tgl 18 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0 1
+;
+#X text 121 503 <-- off to hear left-hand side \; on to hear right
+hand side.;
+#X obj 332 320 pack 0 30;
+#N canvas 0 0 450 300 pulse 0;
+#X obj 64 197 outlet~;
+#X obj 63 93 phasor~ 50;
+#X obj 63 119 *~ 100;
+#X obj 63 144 clip~ 0.75 1.25;
+#X obj 64 170 cos~;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 0 0;
+#X restore 22 255 pd pulse;
+#X obj 29 350 delwrite~ G05-d1 1000;
+#X obj 36 394 vd~ G05-d1;
+#X obj 332 345 line~;
+#X text 21 102 To get them to go off in the correct order \, put the
+delread~ and vd~ objects in subpatches. The audio connections between
+the subpatches force the "reader" to be sorted after the "writer".
+DSP sorting in Pd follows the hierarchy of subpatches.;
+#X text 20 166 To hear the difference scroll the delay time between
+0 and 100 samples. The patch at left doesn't let you get below 64 samples
+\, but the patch at right can go all the way down to one sample.;
+#X text 19 219 You can use the same strategy to avoid picking up unwanted
+64-sample delays in send~/receive~ and throw~/catch~ pairs.;
+#X obj 1 1 cnv 15 445 20 empty \$0-pddp.cnv.header order_of_execution...
+20 10 1 18 -261139 -33289 0;
+#X obj 407 2 pddp/pddplink http://puredata.info/dev/pddp -text pddp
+;
+#X text 116 29 ... of delwrite~ and delread~/vd~;
+#X obj 1 602 cnv 15 445 20 empty \$0-pddp.cnv.footer empty 20 12 0
+14 -233017 -33289 0;
+#N canvas 44 246 494 284 META 0;
+#X text 12 105 WEBSITE http://crca.ucsd.edu/~msp/;
+#X text 12 85 AUTHOR Miller Puckette;
+#X text 12 65 LIBRARY PDDP;
+#X text 12 25 LICENSE SIBSD;
+#X text 12 125 HELP_PATCH_AUTHORS Updated for release 0.37-1. Jonathan
+Wilkes revised the patch to conform to the PDDP template for Pd version
+0.42.;
+#X text 12 45 DESCRIPTION order of execution;
+#X text 12 5 KEYWORDS signal nonlocal tutorial;
+#X restore 392 604 pd META;
+#N canvas 13 202 428 190 References 0;
+#X obj 1 1 cnv 15 425 20 empty \$0-pddp.cnv.subheading empty 3 12 0
+14 -261139 -33289 0;
+#X text 7 2 order of execution- Related Help Documents;
+#X text 19 37 links:;
+#X restore 103 604 pd References;
+#X obj 6 604 pddp/pddplink ../5.reference/pddp/help.pd -text help;
+#X text 358 275 (in samples);
+#X text 362 259 <-- delay;
+#X connect 0 0 8 0;
+#X connect 1 0 4 1;
+#X connect 1 0 7 0;
+#X connect 3 0 7 1;
+#X connect 4 0 3 0;
+#X connect 5 0 6 0;
+#X connect 6 0 4 0;
+#X connect 7 0 9 0;
+#X connect 7 0 9 1;
+#X connect 8 0 12 0;
+#X connect 10 0 3 1;
+#X connect 12 0 16 0;
+#X connect 13 0 1 0;
+#X connect 13 0 5 0;
+#X connect 13 0 14 0;
+#X connect 15 0 1 1;
+#X connect 16 0 6 1;
+#X connect 16 0 15 0;

@@ -1,0 +1,78 @@
+=>to install react
+npm install -g create-react -app
+npx create-react-app projectname
+
+=>to run react js program
+npm start
+
+React Components:-
+-it is a js function that you can sprinkle with marker react components for your app.
+
+-JSX=Java Script XML
+-we must have to complete tag
+-we can use fragment tag "<> </>"
+-we always have to write in the main tag
+-In React, you specify a CSS class with className. 
+-we can't use special characters Ex: stroke-width=>strokeWidth
+-JSX is stricter than HTML. You have to close tags like <br />. 
+-Your component also can’t return multiple JSX tags. 
+-You have to wrap them into a shared parent, like a <div>...</div> or an empty <>...</> wrapper.
+-passing expression 
+    Ex: a=LJ
+        <h1>{a}</h1>
+    Ex: a=LJ
+        <h1 style:{{color:red;}}</h1>
+-for comment 
+    Ex: {/* */}
+        {// }
+-always create file name with capital letters
+-always use function name as file name
+-bydefault port => 3000
+
+task1:
+Write js script and create one component in which add h1 element which include your name, add one p element which include current date, add one p element with current time.
+
+Props state for property:
+- its an obj which stores the value of attribue of text and work similar to html attrubute, now they are used to transfer data from one component to another, now they are passed as an obj.
+
+
+React Events:
+    onClick-->Ex. <button onClick={'Demo'}>
+    onDoubleClick
+    onChange
+    preventDefault
+
+Map:
+
+-In react map method is used to traverse and display list of similar obj. of a components
+-Its not a feature of react js.
+-Its a standard js function that could be used on any array.
+-It creates new array by calling a provided function on every element in the calling array 
+
+task3:
+write a program to create react js app having array of strings and convert it in upper case using map method.
+
+task4:
+we have array of numerbs and mul each array of this number by 5.
+create react app to display this mul number using map function.
+
+task5:
+create react js app which display images using map function.
+
+List and Keys:
+
+Key is a special atrrubyte you need to include when creating list of elements in react.
+Keys are used in react to identify which item in the list are change updated or deleted.
+Its recommended to use a string as a key that uniquly identify the item in the list.
+
+
+Filter:
+Filter method loops thorugh the data, and filter out the data thatttt doesnt match the criteria that we set.
+Its the process looping thorugh an array and including and excluding the elements inside the array based on a condition that you provide.
+
+Task6:
+Aplly filter and only display prime number fro 1 to 20.
+
+It is used to keep ui in synchoronous with url it is the parent component that is used to stroe all other conponents.
+
+Route: an app can have multiple route they are based on the best match instead of being traverse. It is used to define and render compinents based on the specified path

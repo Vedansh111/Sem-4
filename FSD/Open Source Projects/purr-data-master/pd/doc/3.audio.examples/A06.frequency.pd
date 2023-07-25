@@ -1,0 +1,87 @@
+#N canvas 434 60 448 570 10;
+#N canvas 0 0 450 300 (subpatch) 0;
+#X array osc-output 4410 float 0 black black;
+#X coords 0 1.02 4409 -1.02 180 117 1;
+#X restore 259 210 graph;
+#X obj 105 255 tabwrite~ osc-output;
+#X msg 105 226 bang;
+#X floatatom 246 90 0 0 0 0 - - -;
+#X text 141 226 <-- click to graph;
+#X obj 22 200 r frequency;
+#X msg 246 66 set \$1;
+#X floatatom 22 90 0 0 0 0 - - -;
+#X obj 22 42 r frequency;
+#X msg 22 66 set \$1;
+#X obj 35 114 s frequency;
+#X obj 246 42 r pitch;
+#X obj 255 114 s pitch;
+#X obj 246 140 mtof;
+#X obj 246 164 s frequency;
+#X obj 22 164 s pitch;
+#X obj 22 140 ftom;
+#X text 69 90 <-- set frequency;
+#X text 288 89 <-- set MIDI pitch;
+#X text 19 498 Note also the "set" messages going to the number boxes
+so that they can each update the other without bringing on an infinite
+loop. (get help on number boxes for details.);
+#X text 94 285 <-- output level;
+#X text 67 140 <-- convert frequency;
+#X text 122 158 to "MIDI" pitch;
+#X obj 22 267 output~;
+#X obj 22 226 osc~;
+#X obj 1 1 cnv 15 445 20 empty \$0-pddp.cnv.header frequency_and_pitch
+20 10 1 18 -261139 -33289 0;
+#X obj 407 2 pddp/pddplink http://puredata.info/dev/pddp -text pddp
+;
+#X text 293 141 <-- convert "MIDI" pitch;
+#X text 359 157 to frequency;
+#X text 255 327 --------- 0.1 seconds ---------;
+#X text 19 349 The [osc~] object \, if you give it an argument \, expects
+floating-point messages to set its frequency. Without arguments \,
+its frequency is controlled by connecting an audio signal to its input.
+;
+#X text 19 402 Frequency and pitch are converted using the [ftom] and
+[mtof] objects. Frequency refers to the number of cycles per second.
+Pitch is "60" for Middle C \, 61 for C sharp \, 72 for the next C up
+\, and so on.;
+#X text 19 456 [mtof] and [ftom] work fine for microtones (non-integral
+"MIDI pitch" ) and don't have MIDI's range restriction-- for example
+\, MIDI -36 is about 1 Hz.;
+#X obj 1 548 cnv 15 445 20 empty \$0-pddp.cnv.footer empty 20 12 0
+14 -233017 -33289 0;
+#N canvas 44 246 494 284 META 0;
+#X text 12 105 WEBSITE http://crca.ucsd.edu/~msp/;
+#X text 12 85 AUTHOR Miller Puckette;
+#X text 12 65 LIBRARY PDDP;
+#X text 12 25 LICENSE SIBSD;
+#X text 12 125 HELP_PATCH_AUTHORS Updated for release 0.36. Jonathan
+Wilkes revised the patch to conform to the PDDP template for Pd version
+0.42.;
+#X text 12 45 DESCRIPTION frequency and pitch;
+#X text 12 5 KEYWORDS MIDI conversion tutorial;
+#X restore 392 550 pd META;
+#N canvas 12 348 428 190 References 0;
+#X obj 1 1 cnv 15 425 20 empty \$0-pddp.cnv.subheading empty 3 12 0
+14 -261139 -33289 0;
+#X text 7 2 frequency and pitch- Related Help Documents;
+#X text 19 37 There are many other objects used to convert acoustic
+units. See:;
+#X obj 19 64 pddp/pddplink ../5.reference/all_about_acoustic_conversions.pd
+-text doc/5.reference/all_about_acoustic_conversions.pd;
+#X restore 103 550 pd References;
+#X obj 6 550 pddp/pddplink ../5.reference/pddp/help.pd -text help;
+#X connect 2 0 1 0;
+#X connect 3 0 12 0;
+#X connect 3 0 13 0;
+#X connect 5 0 24 0;
+#X connect 6 0 3 0;
+#X connect 7 0 10 0;
+#X connect 7 0 16 0;
+#X connect 8 0 9 0;
+#X connect 9 0 7 0;
+#X connect 11 0 6 0;
+#X connect 13 0 14 0;
+#X connect 16 0 15 0;
+#X connect 24 0 1 0;
+#X connect 24 0 23 0;
+#X connect 24 0 23 1;

@@ -1,0 +1,35 @@
+#N canvas 181 54 562 479 10;
+#X obj 4 -17 cnv 15 550 40 empty \$0-pddp.cnv.header brightness 3 12
+0 18 -241536 -1 0;
+#X obj 3 189 cnv 3 550 3 empty \$0-pddp.cnv.inlets inlets 15 12 0 13
+-245500 -191407 0;
+#X obj 3 258 cnv 3 550 3 empty \$0-pddp.cnv.outlets outlet 15 12 0
+13 -245500 -191407 0;
+#X obj 3 308 cnv 3 550 3 empty \$0-pddp.cnv.argument argument 15 12
+0 13 -245500 -191407 0;
+#X obj 3 368 cnv 3 550 3 empty \$0-pddp.cnv.more_info more_info 15
+12 0 13 -245500 -191407 0;
+#X obj 432 6 pddp/pddplink http://wiki.puredata.info/en/apple/brightness
+-text pdpedia: brightness;
+#X obj 104 394 pddp/pddplink http://www.osxbook.com/book/bonus/chapter10/light/
+;
+#X msg 197 39 bang;
+#X floatatom 197 153 5 0 0 0 - - -, f 5;
+#X obj 216 73 hsl 128 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X floatatom 229 97 5 0 0 0 - - -, f 5;
+#X text 15 6 description: query and control screen brightness on Apples
+;
+#X obj 446 -14 apple/brightness;
+#X text 102 326 Accepts one float argument to set the screen brightness
+(between 0 and 1);
+#X text 103 276 float - current screen brightness (between 0 and 1)
+;
+#X text 102 208 bang - output current screen brightness;
+#X text 102 228 float - set the screen brightness (between 0 and 1)
+;
+#X obj 197 122 apple/brightness;
+#X connect 7 0 17 0;
+#X connect 9 0 10 0;
+#X connect 9 0 17 0;
+#X connect 17 0 8 0;

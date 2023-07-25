@@ -1,0 +1,97 @@
+#N canvas 257 37 647 471 10;
+#N canvas 0 0 450 300 (subpatch) 0;
+#X array \$0-tab1 100 float 1 black black;
+#A 0 0.999974 0.998121 0.998981 1.00106 1.00019 1.00133 1.00017 0.997406
+0.995891 0.986251 0.976591 0.959539 0.93749 0.903172 0.859824 0.805118
+0.744756 0.682757 0.617726 0.555802 0.496807 0.443599 0.395099 0.351557
+0.313317 0.279982 0.250867 0.225225 0.202565 0.182842 0.165875 0.150662
+0.13708 0.125107 0.11452 0.105018 0.0965065 0.0887956 0.0819179 0.0757449
+0.0701302 0.0650313 0.0604129 0.056344 0.0525467 0.0490616 0.04589
+0.0429836 0.0403206 0.0378735 0.0355742 0.0334788 0.0315483 0.0297412
+0.0280809 0.0265134 0.0251207 0.0237881 0.0225431 0.0213794 0.0203074
+0.0192861 0.0183551 0.0174563 0.0166231 0.0158432 0.0151 0.0144158
+0.0137608 0.0131513 0.0125729 0.0120266 0.0115073 0.0110253 0.0105541
+0.0101301 0.00971218 0.0093198 0.00894806 0.00859575 0.00825236 0.00794149
+0.00763651 0.00734779 0.00707258 0.0068092 0.00656191 0.0063171 0.00609739
+0.00587868 0.0056713 0.00547262 0.00528366 0.00509866 0.00493017 0.00476291
+0.00460384 0.00445121 0.00430475 0.00416536;
+#X coords 0 5 99 0 200 300 1;
+#X restore 422 112 graph;
+#X obj 22 225 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X floatatom 30 269 3 0 0 0 - - -, f 3;
+#X text 477 418 frequency;
+#N canvas 876 177 375 255 startup 0;
+#X obj 22 24 loadbang;
+#X obj 22 48 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X obj 22 67 f \$0;
+#X text 35 195 This subpatch loads initial;
+#X text 31 219 values in number boxes.;
+#X msg 22 91 \; \$1-lf 80 \; \$1-hf 150 \;;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 2 0 5 0;
+#X restore 216 407 pd startup;
+#X text 360 410 gain=0;
+#X obj 22 421 filter-graph2 \$0-tab1;
+#X text 400 101 5;
+#X text 417 411 0;
+#X text 405 342 1;
+#X obj 146 383 butterworth3~;
+#X floatatom 164 325 3 0 100 0 - #0-lf -, f 3;
+#X floatatom 211 324 3 85 150 0 - #0-hf -, f 3;
+#X obj 164 351 mtof;
+#X obj 211 351 mtof;
+#X text 597 414 5000;
+#X obj 22 246 filter-graph1 100 5000;
+#X text 156 303 poles;
+#X text 208 303 zeros;
+#X obj 1 1 cnv 15 445 20 empty \$0-pddp.cnv.header Butterworth_filter
+20 10 1 18 -261139 -33289 0;
+#X obj 407 2 pddp/pddplink http://puredata.info/dev/pddp -text pddp
+;
+#X obj 1 459 cnv 15 445 20 empty \$0-pddp.cnv.footer empty 20 12 0
+14 -233017 -33289 0;
+#N canvas 44 246 494 284 META 0;
+#X text 12 105 WEBSITE http://crca.ucsd.edu/~msp/;
+#X text 12 85 AUTHOR Miller Puckette;
+#X text 12 65 LIBRARY PDDP;
+#X text 12 25 LICENSE SIBSD;
+#X text 12 125 HELP_PATCH_AUTHORS Updated for release 0.39. Jonathan
+Wilkes revised the patch to conform to the PDDP template for Pd version
+0.42.;
+#X text 12 45 DESCRIPTION Butterworth filter;
+#X text 12 5 KEYWORDS signal tutorial;
+#X restore 392 461 pd META;
+#N canvas 13 202 428 190 References 0;
+#X obj 1 1 cnv 15 425 20 empty \$0-pddp.cnv.subheading empty 3 12 0
+14 -261139 -33289 0;
+#X text 7 2 Butterworth filter- Related Help Documents;
+#X text 19 37 links:;
+#X restore 103 461 pd References;
+#X obj 6 461 pddp/pddplink ../5.reference/pddp/help.pd -text help;
+#X text 19 143 The [butterworth3~] abstraction computes filter coefficients
+using control messages \, and so it is not suitable for continuously
+time-varying Butterworth filters. For that \, it is often appropriate
+to use time-saving approximations \, but precisely which approximations
+to use will depend on the way the filter is to be used.;
+#X text 19 36 The butterworth filter can be configured for low-pass
+\, high-pass \, and shelving \, depending on the placement of the poles
+and zeros. For low-pass \, the poles are placed to set the cutoff frequency
+and the zeros are at -1 (the Nyquist). Leaving the poles fixed and
+moving the zeros then gives shelving filters. In this example \, the
+actual filtering is relegated to an abstraction-- [butterworth3~]--
+which takes frequencies corresponding to the pole and zero placement.
+;
+#X connect 1 0 16 0;
+#X connect 10 0 6 3;
+#X connect 11 0 13 0;
+#X connect 12 0 14 0;
+#X connect 13 0 10 1;
+#X connect 14 0 10 2;
+#X connect 16 0 2 0;
+#X connect 16 0 6 0;
+#X connect 16 1 6 1;
+#X connect 16 1 10 0;
+#X connect 16 2 6 2;

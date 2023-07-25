@@ -1,0 +1,52 @@
+current: all
+
+.SUFFIXES: .d_fat
+
+PDSOURCE = "/Applications/Pd.app/Contents/Resources/src"
+
+IEMLIB_INCLUDE = ../../include
+
+PD_INCLUDES = -I. -I$(IEMLIB_INCLUDE) -I$(PDSOURCE)
+
+PD_DEFINES = -DPD
+
+CFLAGS =-O2 -Wall -W -Wshadow -Wstrict-prototypes \
+        -Wno-unused -Wno-parentheses -Wno-switch -fPIC
+
+LFLAGS = -bundle -undefined suppress -flat_namespace
+
+ARCH_FLAGS=-arch i386 -arch ppc
+
+# the sources
+
+SRC = 	t3_bpe.c \
+	t3_delay.c \
+	t3_line~.c \
+	t3_metro.c \
+	t3_sig~.c \
+	t3_timer.c \
+	iem_t3_lib.c
+
+TARGET = iem_t3_lib.d_fat
+
+
+OBJ = $(SRC:.c=.o) 
+
+#
+#  ------------------ targets ------------------------------------
+#
+
+clean:
+	rm -f ../$(TARGET)
+	rm -f *.o
+
+all: $(OBJ)
+	@echo :: $(OBJ)
+	$(CC) $(ARCH_FLAGS) $(LFLAGS) -o $(TARGET) *.o
+	strip -S -x $(TARGET)
+	mv $(TARGET) ..
+
+$(OBJ) : %.o : %.c
+	$(CC) $(ARCH_FLAGS) $(PD_DEFINES) $(CFLAGS) $(PD_INCLUDES) -c -o $*.o $*.c
+
+

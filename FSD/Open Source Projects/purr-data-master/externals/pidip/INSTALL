@@ -1,0 +1,47 @@
+a/ first, install  :
+
+MANDATORY ::
+============
+***** PD sources 	: svn co https://pure-data.svn.sourceforge.net/svnroot/pure-data/trunk/pd pd 
+***** PDP sources       : svn co https://pure-data.svn.sourceforge.net/svnroot/pure-data/trunk/externals/pdp pdp 
+( make a ./configure in pdp )
+
+DEPENDENCIES ::
+============
+
+on a ubuntu system :
+
+apt-get install libbz2-dev libc6-dev libdc1394-22-dev libfreetype6-dev libgcc1 libimlib2-dev libmp3lame-dev libogg-dev libraw1394-dev libtheora-dev libvorbis-dev libvorbisenc2 zlib1g-dev tcllib libcv-dev
+
+OPTIONAL ::
+============
+
+ARToolKitPlus sources : 
+http://studierstube.icg.tu-graz.ac.at/handheld_ar/artoolkitplus.php
+
+libfreenect if you want to build pdp_freenect from :
+git clone https://github.com/OpenKinect/libfreenect.git
+( build it and put it off the stove for the moment )
+
+b/ ./configure --with-pd=PATH --with-pdp=PATH [--with-artkp=PATH]
+
+c/ make clean 
+
+d/ make
+
+e/ copy the pidip.pd_linux in place where pd can find it.
+if you use pd-extended :
+cp pidip.pd_linux /usr/lib/pd-extended/extra/pidip/pidip.pd_linux 
+
+f/ modify your pd start-up script :
+
+pidip is a library, it should be loaded
+with the "-lib <path>/pidip" command line option
+but, BEWARE, it should be place AFTER the 
+loading of PDP library ( option "-lib <path>/pdp" )
+
+Enjoy!!
+
+Thanx for getting here.
+sevy
+comments and bugs @ tffobject@gmail.com

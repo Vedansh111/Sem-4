@@ -1,0 +1,53 @@
+#N struct drawtut-attr float x float y;
+#N canvas 2 25 517 671 10;
+#X text 0 1 New Drawing Commands: attributes;
+#X text 0 1 ________________________________;
+#X text 53 23 Our shapes are pretty boring so far. Black lines around
+white space. How do we get more variety?;
+#X text 53 53 Svg objects have various attributes that define how the
+shapes (and other objects) appear and generally behave. On the web
+these attributes are specified with the drawing data. In Pd \, these
+attributes are controlled by sending messages to the relevant [draw]
+object.;
+#X text 53 123 Svg is a complex specification \, and not all of its
+object attributes are supported in Pd. But the basic ones are.;
+#X obj 53 207 struct drawtut-attr float x float y;
+#X scalar drawtut-attr 55 339 \;;
+#X text 53 153 For example \, below is a [struct] definition \, [draw]
+object and a scalar created from them. Let's send a message to make
+the rectangle more interesting.;
+#X msg 53 252 fill red;
+#X text 53 229 Click a message box to change the "fill" attribute:
+;
+#X text 53 394 As you can see \, the "fill" message changes the fill
+color of the rectangle. You can use a couple different ways to tell
+Pd what color to use:;
+#X text 53 436 * English language color names: red \, green \, orange
+\, and so on. These should be the common names listed in the svg spec
+\, although x11 names might work too. (But don't depend on that.);
+#X text 53 487 * html colors. These begin with a number sign "#" followed
+by hexadecimal values like "#ccddcc" or "#68ef68". (You can also use
+the 3-digit shorthands if you wish.);
+#X text 53 526 * rgb color values using 3 float arguments. Each float
+should be in the range 0-255.;
+#X floatatom 244 253 5 0 0 0 - - -, f 5;
+#X msg 244 274 fill 0 \$1 0;
+#X text 54 596 You can set attributes like "fill" automatically by
+using a [loadbang] message. Notice that attributes will be the same
+for all scalars created from this [struct]. Later you will see how
+to set attributes to be different for each scalar.;
+#X msg 123 252 fill green;
+#X obj 53 313 draw rect 50 50 0 0;
+#N canvas 291 300 450 300 META 0;
+#X text 16 26 LICENSE SIBSD;
+#X text 16 66 AUTHOR Jonathan Wilkes;
+#X text 16 86 HELP_PATCH_AUTHORS Jonathan Wilkes;
+#X text 16 6 KEYWORDS tutorial data_structure draw gui;
+#X text 16 46 DESCRIPTION basic attributes for the [draw] command;
+#X restore 450 639 pd META;
+#X text 53 560 Note: there are also hsl \, hcl \, and lab colors but
+the interface isn't stable yet.;
+#X connect 8 0 18 0;
+#X connect 14 0 15 0;
+#X connect 15 0 18 0;
+#X connect 17 0 18 0;

@@ -1,0 +1,26 @@
+#N canvas 14 5 478 505 10;
+#X obj -14 -2 cnv 6 6 503 empty empty empty 5 14 0 20 -260097 -191407
+0;
+#X obj -41 -2 cnv 15 26 503 empty empty empty 5 14 0 20 -139274 -262144
+0;
+#X obj -13 31 ggee/image @pd_extra/K12/icons/l2ork.png;
+#X obj 77 421 pddp/pddplink http://l2ork.music.vt.edu;
+#X obj 49 460 pddp/pddplink http://disis.music.vt.edu/listinfo/l2ork-dev
+;
+#X text 18 18 Welcome to Pd-L2Ork!What is Pd-L2Ork?Pd-L2Ork is
+a data flow programming language based on Pure-Data. Its primary focus
+is on real-time audio and interactive controller data processing and
+with the help of external libraries (e.g. Gem) \, it can also do a
+lot of other cool things like interactive 3D graphics and more.Pd-L2Ork's
+most immediate purpose is to serve as the backbone for the Linux Laptop
+Orchestra (L2Ork) \, serving both its DSP and GUI needs \, as well
+as an experimental platform for K-12 education through its unique K12
+module.How to get started?The best way to get started is to check
+out introductory tutorials that can be accessed through the Help Browser
+found in the Help menu above.One of the unique features of Pure-Data
+and Pd-L2Ork are its help files which are working snippets of code
+that can be studied and easily inserted into your own creations.We
+refer to such snippets of code as "patches." You can start your own
+patch by selecting "New" option in the "File" menu above.Where can
+I learn more about Pd-L2Ork and L2Ork?Check out Additional help
+can be sought through the l2ork-dev mailing list:;

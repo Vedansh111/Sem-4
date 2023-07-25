@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link id="page_style" rel="stylesheet" type="text/css" href="css/default.css">
+  </head>
+  <body class="dialog_body" onload="resize_textarea();" onresize="resize_textarea();"
+  		style="overflow: hidden;">
+    <div class="container">
+      <textarea id="text" style="margin: 5px 5px 4px 5px; box-sizing: border-box; resize: none;">
+      </textarea>
+    </div>
+    <div class="submit_buttons" style="padding: 0px;">
+      <button type="button" onClick="ok()" data-i18n="[title]iem.prop.ok_tt">
+        <span data-i18n="iem.prop.ok"></span>
+      </button>
+      <button type="button" onClick="cancel()" data-i18n="[title]iem.prop.cancel_tt">
+        <span data-i18n="iem.prop.cancel"></span>
+      </button>
+    </div>
+    <dialog id="save_before_quit">
+      <h5 style="text-align: center;">
+          Do you want to save the changes you made before closing the window?
+      </h5>
+      <div class="submit_buttons">
+        <button type="button"
+                onClick="ok()"
+                id="dialog_yes_button"
+                data-i18n="[title]canvas.save_dialog.yes_tt">
+          <span data-i18n="canvas.save_dialog.yes"></span>
+        </button>
+        <button type="button"
+                onClick="cancel()"
+                id="dialog_no_button"
+                data-i18n="[title]canvas.save_dialog.no_tt">
+          <span data-i18n="canvas.save_dialog.no"></span>
+        </button>
+        <button type="button"
+                onClick="close_modal_dialog()"
+                id="dialog_cancel_button"
+                data-i18n="[title]canvas.save_dialog.cancel_tt">
+          <span data-i18n="canvas.save_dialog.cancel"></span>
+        </button>
+      </div>
+    </dialog>
+  <script>
+"use strict";
+var gui = require("nw.gui");
+var pdgui = require("./pdgui.js");
+
+// For translations
+var l = pdgui.get_local_string;
+
+pdgui.skin.apply(window);
+
+var pd_object_callback;
+var dirty = false;
+
+gui.Window.get().setMinimumSize(260, 70);
+
+function apply() {
+    var text_array = document.getElementById("text").value.split("\n");
+    // clear out Pd's binbuf for our text object
+    pdgui.pdsend(pd_object_callback, "clear");
+    text_array.forEach(function (line) {
+        line = line.replace(",", " \\, ");
+        line = line.replace(";", " \\; ");
+        line = line.replace("$", " \\$ ");
+        pdgui.pdsend(pd_object_callback, "addline", line);
+    });
+    pdgui.pdsend(pd_object_callback, "notify");
+    dirty = 0;
+}
+
+function cancel() {
+    //window.close(true);
+    close_window();
+}
+
+function ok() {
+    apply();
+    cancel();
+}
+
+// Close the modal dialog that appears after clicking the window "x"
+// with a dirty textarea
+function close_modal_dialog() {
+    document.getElementById("save_before_quit").close();
+}
+
+function textarea_clear() {
+    document.getElementById("text").value = "";
+    dirty = true;
+}
+
+function textarea_append(line) {
+    document.getElementById("text").value += line;
+    dirty = true;
+}
+
+function set_dirty(state) {
+    dirty = state;
+}
+
+// This gets called from the nw_create_window function in index.html
+// It provides us with our window id from the C side.  Once we have it
+// we can create the menu and register event callbacks
+function register_window_id(gfxstub, attr) {
+    var head, tail, templates, data, data_separator;
+    pd_object_callback = gfxstub;
+    add_events(gfxstub);
+
+    translate_form();
+    // We request the text data only after we're certain our window
+    // has loaded. Otherwise the node.js context might try to populate
+    // the textarea before the window has actually loaded.
+
+    // This doesn't happen in Pd Vanilla because tcl/tk synchronously
+    // creates the window.
+    pdgui.pdsend(gfxstub, "map");
+
+    // Quick and dirty-- just set the host fontsize in "pt" here. We probably
+    // do all kinds of kludges to get fonts sized correctly to fit into boxes
+    // on the canvas. I don't think it matters whether it's exactly the same
+    // here, so let's just use point sizes.
+    document.getElementsByClassName("container")[0]
+        .style.setProperty("font-size", attr.fontsize + "pt");
+    // We don't turn on rendering of the "container" div until
+    // We've finished displaying all the spans and populating the
+    // labels and form elements.  That makes it more efficient and
+    // snappier, at least on older machines.
+    document.getElementsByClassName("container")[0]
+        .style.setProperty("display", "inline");
+
+    // Hack-- add the title. Currently this is set first by nw.js when the
+    // nwjs window, so you'll see a flicker to the title set here if it's
+    // not "text". We need to change this so that the title can be different
+    // from the dialog type in nw_create_window.
+    document.title = "[" + attr.title + "] Text Editor";
+}
+
+// Stop-gap translator
+function translate_form() {
+    var elements = document.querySelectorAll("[data-i18n]"),
+        data,
+        i;
+    for (i = 0; i < elements.length; i++) {
+        data = elements[i].dataset.i18n;
+        if (data.slice(0, 7) === "[title]") {
+            elements[i].title = l(data.slice(7));
+        } else {
+            elements[i].textContent = l(data);
+        }
+    }
+}
+
+function close_window() {
+    pdgui.pdsend(pd_object_callback, "close");
+    //pdgui.remove_dialogwin(pd_object_callback);
+    //gui.Window.get().close(true);
+}
+
+function close_from_pd(signoff) {
+    if (signoff) {
+        pdgui.pdsend(pd_object_callback, "signoff");
+    }
+    pdgui.remove_dialogwin(pd_object_callback);
+    gui.Window.get().close(true);
+}
+
+function add_events(name) {
+    // closing the Window
+    gui.Window.get().on("close", function () {
+        // this needs to do whatever the "cancel" button does
+        //pdgui.pdsend(name, "menuclose 0");
+        //cancel();
+        // blur the textarea to trigger an onchange if it was modified
+        document.getElementById("text").blur();
+        if (dirty) {
+            document.getElementById("save_before_quit").showModal();
+        } else {
+            close_window();
+        }
+    });
+    document.getElementById("text").onchange = function() {
+        dirty = true;
+    }
+    // Right now the bindings are limited to "Enter = Ok" and "Escape = Cancel".
+    // We leave off those bindings since Enter starts a new line in the textarea
+    //pdgui.dialog_bindings(name);
+}
+
+function resize_textarea() {
+	var text = document.getElementById("text");
+	var textwidth = (window.innerWidth - 10 > 200 ? (window.innerWidth - 10) : 200);
+	var textheight = (window.innerHeight - 40 > 21 ? (window.innerHeight - 40) : 21);
+	text.style.setProperty("width", textwidth + "px");
+	text.style.setProperty("height", textheight + "px");
+}
+  </script>
+  </body>
+</html>

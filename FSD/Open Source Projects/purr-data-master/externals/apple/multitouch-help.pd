@@ -1,0 +1,65 @@
+#N canvas 148 47 562 447 10;
+#X obj 4 -17 cnv 15 550 40 empty \$0-pddp.cnv.header multitouch 3 12
+0 18 -241536 -1 0;
+#X obj 3 220 cnv 3 550 3 empty \$0-pddp.cnv.inlets inlet 15 12 0 13
+-245500 -191407 0;
+#X obj 3 289 cnv 3 550 3 empty \$0-pddp.cnv.outlets outlets 15 12 0
+13 -245500 -191407 0;
+#X obj 3 369 cnv 3 550 3 empty \$0-pddp.cnv.more_info more_info 15
+12 0 13 -245500 -191407 0;
+#X obj 434 6 pddp/pddplink http://wiki.puredata.info/en/apple/multitouch
+-text pdpedia: multitouch;
+#X obj 449 -14 apple/multitouch;
+#X obj 146 101 multitouch;
+#X msg 146 48 bang;
+#X msg 179 73 info;
+#X obj 203 120 pddp/print;
+#X text 216 73 output info on right outlet;
+#X obj 73 73 metro 250;
+#X obj 73 54 tgl 15 0 empty empty empty 0 -6 0 10 -204786 -1 -1 0 1
+;
+#X text 183 46 output sensor values;
+#X text 102 258 "info" - outputs info about the sensor on the right
+outlet;
+#X obj 72 336 cnv 17 3 20 empty \$0-pddp.cnv.let.1 1 5 9 0 16 -228856
+-162280 0;
+#X obj 72 310 cnv 17 3 20 empty \$0-pddp.cnv.let.0 0 5 9 0 16 -228856
+-162280 0;
+#X text 15 6 description: get multitouches from trackpads and iPhones
+;
+#X text 102 239 bang - output current multitouch data;
+#X text 103 337 a message with info about the sensor status;
+#X text 103 311 a list of values for each touch that is being tracked
+;
+#X obj 104 395 pddp/pddplink http://steike.com/code/multitouch/;
+#X floatatom 6 179 5 0 0 3 finger - -, f 5;
+#X floatatom 45 179 5 0 0 3 frame - -, f 5;
+#X floatatom 81 179 5 0 0 3 angle - -, f 5;
+#X floatatom 120 179 5 0 0 3 majorAxis - -, f 5;
+#X floatatom 178 179 5 0 0 3 minorAxis - -, f 5;
+#X obj 146 145 unpack 0 0 0 0 0 0 0 0 0 0 0 0;
+#X floatatom 236 179 5 0 0 3 x - -, f 5;
+#X floatatom 274 179 5 0 0 3 y - -, f 5;
+#X floatatom 307 179 5 0 0 3 x-velocity - -, f 5;
+#X floatatom 368 179 5 0 0 3 Y-velocity - -, f 5;
+#X floatatom 431 179 5 0 0 3 ID - -, f 5;
+#X floatatom 469 179 5 0 0 3 state - -, f 5;
+#X floatatom 509 179 5 0 0 3 size - -, f 5;
+#X connect 6 0 27 0;
+#X connect 6 1 9 0;
+#X connect 7 0 6 0;
+#X connect 8 0 6 0;
+#X connect 11 0 6 0;
+#X connect 12 0 11 0;
+#X connect 27 0 22 0;
+#X connect 27 1 23 0;
+#X connect 27 2 24 0;
+#X connect 27 3 25 0;
+#X connect 27 4 26 0;
+#X connect 27 5 28 0;
+#X connect 27 6 29 0;
+#X connect 27 7 30 0;
+#X connect 27 8 31 0;
+#X connect 27 9 32 0;
+#X connect 27 10 33 0;
+#X connect 27 11 34 0;

@@ -1,0 +1,40 @@
+#N canvas 480 116 390 511 10;
+#X obj 25 197 notein;
+#X obj 25 222 + 0;
+#X obj 25 20 key;
+#X obj 25 42 sel 49 50;
+#X msg 25 64 -12;
+#X msg 50 85 12;
+#X obj 25 117 +;
+#X obj 109 134 nbx 3 88 -60 60 0 0 empty empty empty 0 -8 0 70 #fcfcfc
+#000000 #000000 0 256 1;
+#X obj 25 253 pack 0 0 0;
+#X msg 25 275 \$3 \$1 \$2;
+#X obj 139 295 loadbang;
+#X obj 25 296 fluid~ TimGM6mb;
+#X obj 25 357 output~;
+#X msg 139 320 1;
+#X text 24 431 Download Tim Brechbill's small (~6MB) GM soundfont here:
+;
+#X obj 23 479 pddp/pddplink https://musescore.org/en/handbook/soundfonts-and-sfz-files#list
+-text More soundfonts here (musescore.org);
+#X obj 23 455 pddp/pddplink http://sourceforge.net/p/mscore/code/HEAD/tree/trunk/mscore/share/sound/TimGM6mb.sf2?format=raw
+-text TimGM6mb.sf2 (sf.net);
+#X connect 0 0 1 0;
+#X connect 0 1 8 1;
+#X connect 0 2 8 2;
+#X connect 1 0 8 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 3 1 5 0;
+#X connect 4 0 6 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 6 1;
+#X connect 7 0 1 1;
+#X connect 8 0 9 0;
+#X connect 9 0 11 0;
+#X connect 10 0 13 0;
+#X connect 11 0 12 0;
+#X connect 11 1 12 1;
+#X connect 13 0 12 2;

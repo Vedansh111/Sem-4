@@ -1,0 +1,78 @@
+#N canvas 504 77 713 795 10;
+#X text 279 303 6 : Xmin;
+#X text 279 319 7 : Xmax;
+#X text 279 335 8 : Ymin;
+#X text 279 351 9 : Ymax;
+#X text 272 367 10 : Zmin;
+#X text 272 383 11 : Zmax;
+#X text 272 398 12 : Threshold;
+#X msg 119 565 resetF;
+#X msg 120 538 reset;
+#X msg 119 489 bang;
+#X msg 119 588 off;
+#X msg 120 610 on;
+#X msg 119 635 loadbang;
+#X obj 31 678 mass3D;
+#X msg 120 514 force3D $f1 $f2 $f3;
+#X msg 120 154 setM 1;
+#X msg 121 190 setX 0 \, setY 0 \, setZ 0;
+#X msg 116 271 setXmin -10000 \, setXmax 10000 \, setYmin -10000 \,
+setYmax 10000 \, setZmin -10000 \, setZmax 10000;
+#X msg 119 397 setT 0;
+#X obj 31 759 unpack s f f f;
+#X text 304 113 this is the name of the mass. you can set value to
+this name instead of making a pd connection.;
+#X msg 121 214 setXYZ 0 0 0;
+#X msg 119 462 setD 0;
+#X obj 64 710 unpack s f f f f;
+#X obj 47 735 unpack s f f f f;
+#X text 317 6 mass;
+#X text 279 189 3 : X = initial position of the mass;
+#X text 279 210 4 : Y = initial position of the mass;
+#X text 279 226 5 : Z = initial position of the mass;
+#X text 178 712 X Y Z & total velocity of the mass;
+#X text 163 736 X Y Z & total force apply to the mass;
+#X text 279 150 2 : M = weight of the mass;
+#X text 344 327 if the position of the mass is < Xmin then position
+will be Xmin;
+#X text 302 164 changes weight of the mass;
+#X text 301 239 changes position of the mass \, and resets memory (for
+history).;
+#X text 343 310 sets the minimum and maximum position of the mass;
+#X text 301 412 when the masses are at Xmin \, Xmax \, Ymon \, Ymax
+\, Zmin or Zmax \, the movement is possible only if the force applied
+is higher than the threshold;
+#X text 272 460 13 : Damp : changes the velocyty damping of the mass
+;
+#X text 272 486 computes position and outputs it;
+#X text 270 515 add sforce to this mass;
+#X text 270 534 resets position (to its initial value) and forces to
+zero. send its position to its outlet.;
+#X text 269 570 resets the total forces applied to the mass;
+#X text 270 592 stops mass mouvement;
+#X text 269 612 restarts mass movement;
+#X text 270 634 outputs curent position;
+#X text 148 760 X Y Z position of the mass;
+#X text 156 23 mass3D : gets link forces and outputs position.;
+#X text 155 37 The sum of forces applied to a mass modifies its velocity
+(depending of its weight). The position changes according to the velocity
+and the weight of the mass.;
+#X text 156 76 M is positive. Negative values produce non physical
+behaviours;
+#X text 281 97 1 : Name;
+#X connect 7 0 13 0;
+#X connect 8 0 13 0;
+#X connect 9 0 13 0;
+#X connect 10 0 13 0;
+#X connect 11 0 13 0;
+#X connect 12 0 13 0;
+#X connect 13 0 19 0;
+#X connect 13 1 24 0;
+#X connect 13 2 23 0;
+#X connect 14 0 13 0;
+#X connect 15 0 13 0;
+#X connect 16 0 13 0;
+#X connect 17 0 13 0;
+#X connect 18 0 13 0;
+#X connect 21 0 13 0;
+#X connect 22 0 13 0;

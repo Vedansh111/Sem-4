@@ -1,0 +1,135 @@
+#N canvas 199 25 738 592 10;
+#N canvas 0 0 450 300 (subpatch) 0;
+#X array \$0-tab1 100 float 1 black black;
+#A 0 0.960563 0.960996 0.962862 0.970269 0.977017 0.985214 1.00122
+1.02249 1.05453 1.10332 1.18193 1.31034 1.5315 1.91468 2.37977 2.37001
+1.92679 1.57244 1.36114 1.23298 1.15262 1.09943 1.06243 1.03636 1.0162
+1.00108 0.990295 0.981066 0.973613 0.967183 0.962328 0.958092 0.95445
+0.951329 0.948619 0.946121 0.943931 0.941728 0.940557 0.93934 0.938046
+0.936816 0.935569 0.934901 0.933719 0.933252 0.932534 0.931875 0.93121
+0.930347 0.929637 0.929717 0.929279 0.928865 0.928444 0.927868 0.92761
+0.926893 0.927202 0.926932 0.926666 0.926305 0.925926 0.926007 0.925702
+0.925624 0.92545 0.925285 0.924954 0.924532 0.924071 0.924718 0.924596
+0.924454 0.924247 0.923846 0.924172 0.923627 0.924005 0.92393 0.923866
+0.923769 0.923157 0.923666 0.923974 0.923561 0.923498 0.923437 0.922882
+0.922781 0.92203 0.923331 0.923265 0.922948 0.922413 0.922799 0.925651
+0.921397 0.931729 0.976084;
+#X coords 0 5 99 0 200 300 1;
+#X restore 516 193 graph;
+#X obj 23 344 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X floatatom 31 388 3 0 0 0 - - -, f 3;
+#X text 571 499 frequency;
+#N canvas 876 177 375 255 startup 0;
+#X obj 22 24 loadbang;
+#X obj 22 48 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X obj 22 67 f \$0;
+#X text 35 195 This subpatch loads initial;
+#X text 31 219 values in number boxes.;
+#X msg 22 91 \; \$1-pole 60 \; \$1-zero 20;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 2 0 5 0;
+#X restore 310 542 pd startup;
+#X floatatom 258 308 3 0 99 0 - #0-pole -, f 3;
+#X text 454 491 gain=0;
+#X obj 23 540 filter-graph2 \$0-tab1;
+#X obj 23 365 filter-graph1 100 22050;
+#X text 691 495 22050;
+#X obj 258 331 / 100;
+#X floatatom 312 307 4 0 100 0 - #0-zero -, f 4;
+#X obj 312 330 / 100;
+#X text 494 182 5;
+#X text 511 492 0;
+#X text 499 423 1;
+#X floatatom 388 306 3 0 180 0 - #0-pole -, f 3;
+#X text 397 268 angle;
+#X text 381 284 (degrees);
+#X obj 442 375 sin;
+#X obj 387 376 cos;
+#X obj 387 327 * 3.14159;
+#X obj 387 351 / 180;
+#X obj 223 455 *;
+#X obj 387 400 t b f;
+#X obj 442 400 t b f;
+#X obj 191 483 cpole~;
+#X obj 208 514 czero~;
+#X text 248 272 pole and zero;
+#X text 266 287 radii (%);
+#X obj 259 456 *;
+#X obj 296 482 *;
+#X obj 331 482 *;
+#X text 20 208 Here the pole and zero radii (p and q) control the center-frequency
+gain by the formula (1-q)/(1-p). The closer to 1 the radii \, the narrower
+the band affected. The non-peak gain \, (1+q)/(1+p) \, is close to
+1 as long as p and q are at least 50% or so.;
+#X obj 1 1 cnv 15 445 20 empty \$0-pddp.cnv.header peaking_filter 20
+10 1 18 -261139 -33289 0;
+#X obj 407 2 pddp/pddplink http://puredata.info/dev/pddp -text pddp
+;
+#X text 19 37 To get a peaking filter \, start with a shelving filter
+but rotate the pole and zero to the point on the unit circle you want
+to amplify or attenuate. The rpole~ and rzero~ filters are replaced
+with their complex-valued siblings \, cpole~ and czero~. These filters
+take a (real \, imaginary) pair to filter and another (real-imaginary)
+pair to specify the pole or zero. As for [rpole~] and [rzero~] \, the
+coefficients may change at audio rate.;
+#X obj 1 580 cnv 15 445 20 empty \$0-pddp.cnv.footer empty 20 12 0
+14 -233017 -33289 0;
+#N canvas 44 246 494 284 META 0;
+#X text 12 105 WEBSITE http://crca.ucsd.edu/~msp/;
+#X text 12 85 AUTHOR Miller Puckette;
+#X text 12 65 LIBRARY PDDP;
+#X text 12 25 LICENSE SIBSD;
+#X text 12 125 HELP_PATCH_AUTHORS Updated for release 0.39. Jonathan
+Wilkes revised the patch to conform to the PDDP template for Pd version
+0.42.;
+#X text 12 45 DESCRIPTION peaking filter;
+#X text 12 5 KEYWORDS signal tutorial;
+#X restore 392 582 pd META;
+#N canvas 13 202 428 190 References 0;
+#X obj 1 1 cnv 15 425 20 empty \$0-pddp.cnv.subheading empty 3 12 0
+14 -261139 -33289 0;
+#X text 7 2 peaking filter- Related Help Documents;
+#X text 19 37 links:;
+#X restore 103 582 pd References;
+#X obj 6 582 pddp/pddplink ../5.reference/pddp/help.pd -text help;
+#X text 19 144 The outputs of [cpole~] and [czero~] are also in the
+form of a (real-imaginary) pair. Both outlets of [cpole~] are connected
+to [czero~] in this example \, but then since we want a real-valued
+filter \, we only take the real part of the (complex) output of [czero~].
+;
+#X connect 1 0 8 0;
+#X connect 5 0 10 0;
+#X connect 8 0 2 0;
+#X connect 8 0 7 0;
+#X connect 8 1 7 1;
+#X connect 8 1 26 0;
+#X connect 8 2 7 2;
+#X connect 10 0 23 0;
+#X connect 10 0 30 0;
+#X connect 11 0 12 0;
+#X connect 12 0 31 0;
+#X connect 12 0 32 0;
+#X connect 16 0 21 0;
+#X connect 19 0 25 0;
+#X connect 20 0 24 0;
+#X connect 21 0 22 0;
+#X connect 22 0 20 0;
+#X connect 22 0 19 0;
+#X connect 23 0 26 2;
+#X connect 24 0 23 0;
+#X connect 24 0 31 0;
+#X connect 24 1 23 1;
+#X connect 24 1 31 1;
+#X connect 25 0 30 0;
+#X connect 25 0 32 0;
+#X connect 25 1 32 1;
+#X connect 25 1 30 1;
+#X connect 26 0 27 0;
+#X connect 26 1 27 1;
+#X connect 27 0 7 3;
+#X connect 30 0 26 3;
+#X connect 31 0 27 2;
+#X connect 32 0 27 3;

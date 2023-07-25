@@ -1,0 +1,48 @@
+Install: npm install multer
+
+Multer:
+-it is a nodejs middleware for handling multipart or form data which is primarily used for uploading the files.
+-it adds a file or files obj. to request obj.
+-the file obj. contain the data of files uploaded via the form.
+
+->Disk Storage:
+-it stores all the uploads in memory and on disk, by default we use local storage but you can also configure other options like s3 etc..
+-it gives you full control on storing files to disk
+-there are 2 options destination n file name, they both are function that determine where the file should stored
+
+var storage=multer.diskStorage({
+    destination:'single',
+    filename:function(req,file,callback){
+        callback(null,file.originalname)
+    }
+})
+
+-Multer accepts an option obj. the most basic of which is the storage property which tells multer where to upload the files.
+-Incase u emit the option obj. the files will be kept in the memory and never return to the disk.
+
+->Storage: where to store the file
+->fileFilter: function to control which file are accepted
+->limits: limits of uploaded data
+->preservePath: keep the full file path of the file instead of page name
+
+fieldname=single:-
+-this accepts a single file with the name fieldname.
+
+Task-1:
+write expres that allows only pdf files to upload using multer middleware n saves the file to the specific dir called 'specific'. If other than pdf files has been upload then print err msg.
+
+npm install pug
+vs code pets
+
+->Pug is a js lib thta was z known.
+-it is and easy to code tempelate engine ued to code htlm in a more readbale fashion
+-syntax is sensitive in intentation and whitespcae
+
+API:-
+-it is a set of commands functions or protocals that act as an intermediatory that enables 2 apps to communicate.
+
+Rest:-
+-representational state transfer
+-it is a type for creating website using http protocol
+-the transfr of state of representation of resources.
+-now most popular for representational resource is json cause it can be read by both human n machine

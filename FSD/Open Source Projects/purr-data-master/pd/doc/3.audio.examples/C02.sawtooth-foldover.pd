@@ -1,0 +1,61 @@
+#N canvas 434 25 448 453 10;
+#X obj 155 333 output~;
+#X obj 155 305 clip~ 0 1;
+#X obj 155 152 mtof;
+#X floatatom 155 130 3 0 0 0 - - -, f 3;
+#X obj 155 261 *~ 20;
+#X obj 155 283 -~ 19;
+#X obj 155 176 phasor~;
+#N canvas 0 0 560 183 (subpatch) 0;
+#X obj 25 74 loadbang;
+#X msg 25 99 61;
+#X obj 25 124 outlet;
+#X text 7 6 This sets the pitch initially to 61 when the patch is first
+opened.;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X restore 155 104 pd;
+#X text 190 129 <--pitch;
+#X obj 164 205 output~;
+#X text 237 204 <--sawtooth amplitude;
+#X text 233 358 <--pulse train amplitude;
+#X text 18 388 We'll explain more about making pulses later on... this
+example is mostly intended as ear training.;
+#X text 18 37 In more ordinary kinds of waveforms \, foldover comes
+across as a "cheap synth" sound. You can hear the foldover clearly
+in the pulse train here \, and less clearly (but still audibly) in
+the straight sawtooth \, especially at high pitches.;
+#X obj 1 1 cnv 15 445 20 empty \$0-pddp.cnv.header foldover_in_sawtooth_waves
+20 10 1 18 -261139 -33289 0;
+#X obj 407 2 pddp/pddplink http://puredata.info/dev/pddp -text pddp
+;
+#X obj 1 431 cnv 15 445 20 empty \$0-pddp.cnv.footer empty 20 12 0
+14 -233017 -33289 0;
+#N canvas 44 246 494 284 META 0;
+#X text 12 105 WEBSITE http://crca.ucsd.edu/~msp/;
+#X text 12 85 AUTHOR Miller Puckette;
+#X text 12 65 LIBRARY PDDP;
+#X text 12 25 LICENSE SIBSD;
+#X text 12 125 HELP_PATCH_AUTHORS Updated for release 0.37. Jonathan
+Wilkes revised the patch to conform to the PDDP template for Pd version
+0.42.;
+#X text 12 45 DESCRIPTION foldover in sawtooth waves;
+#X text 12 5 KEYWORDS signal tutorial;
+#X restore 392 433 pd META;
+#N canvas 13 202 428 190 References 0;
+#X obj 1 1 cnv 15 425 20 empty \$0-pddp.cnv.subheading empty 3 12 0
+14 -261139 -33289 0;
+#X text 19 37 links:;
+#X text 7 2 foldover- Related Help Documents;
+#X restore 103 433 pd References;
+#X obj 6 433 pddp/pddplink ../5.reference/pddp/help.pd -text help;
+#X connect 1 0 0 0;
+#X connect 1 0 0 1;
+#X connect 2 0 6 0;
+#X connect 3 0 2 0;
+#X connect 4 0 5 0;
+#X connect 5 0 1 0;
+#X connect 6 0 4 0;
+#X connect 6 0 9 0;
+#X connect 6 0 9 1;
+#X connect 7 0 3 0;

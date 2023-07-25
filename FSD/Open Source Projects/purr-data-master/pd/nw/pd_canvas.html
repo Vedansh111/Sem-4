@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/dejavu.css">
+    <link id="page_style" rel="stylesheet" type="text/css">
+    <title></title>
+  </head>
+  <body class="patch_body">
+    <span id = "fileDialogSpan">
+      <input style="display:none;" id="fileDialog" type="file" multiple />
+    </span>
+    <span id = "saveDialogSpan">
+      <input style="display:none;" id="saveDialog" type="file"
+             nwsaveas nwworkingdir accept=".pd" />
+    </span>
+    <span id = "printDialogSpan">
+      <input style="display:none;" id="printDialog" type="file"
+             nwsaveas nwworkingdir accept=".pdf" />
+    </span>
+    <span id = "openpanelSpan">
+      <input style="display:none;" id="openpanel_dialog" type="file" />
+    </span>
+    <span id = "savepanelSpan">
+      <input style="display:none;" id="savepanel_dialog" type="file"
+           nwsaveas nwworkingdir />
+    </span>
+    <svg xmlns="http://www.w3.org/2000/svg"
+         version="1.1"
+         id="patchsvg"
+         class="noselect"
+         viewBox="0 0 0 0">
+    </svg>
+    <div id="canvas_find" style="display:none;">
+      <label><input type="text"
+                    id="canvas_find_text"
+                    name="canvas_find_text"
+                    defaultValue="Search in Canvas"
+                    style="width:10em"/>
+      </label>
+      <label><span data-i18n="canvas.find.whole_word"
+          style="margin-left: 7px;  margin-right: -3px;"></span>
+          <input type="checkbox"
+               id="canvas_find_whole_word"
+               name="canvas_find_whole_word"
+               onchange="canvas_find_whole_word(this);"
+               style="position: relative; top: 2px; margin-right: 5px;"/> 
+      </label>
+      <button type="button"
+              id="canvas_find_button"
+              data-i18n="[title]canvas.find.search_tt">
+        <span data-i18n="canvas.find.search"></span>
+      </button>
+    </div>
+    <div style="display:none;" id="dropdown_list" class="noselect">
+      <ol></ol>
+    </div>
+    <dialog id="save_before_quit">
+      <h5 style="text-align: center;"><span data-i18n="canvas.save_dialog.prompt"></span>
+        <span id="save_before_quit_filename"></span>?
+      </h5>
+      <div class="submit_buttons">
+        <button type="button"
+                id="yes_button"
+                data-i18n="[title]canvas.save_dialog.yes_tt">
+          <span data-i18n="canvas.save_dialog.yes"></span>
+        </button>
+        <button type="button"
+                id="no_button"
+                data-i18n="[title]canvas.save_dialog.no_tt">
+          <span data-i18n="canvas.save_dialog.no"></span>
+        </button>
+        <button type="button"
+                id="cancel_button"
+                data-i18n="[title]canvas.save_dialog.cancel_tt">
+          <span data-i18n="canvas.save_dialog.cancel"></span>
+        </button>
+      </div>
+    </dialog>
+    <dialog id="abstract_dialog">
+      <h4><span style="white-space: pre-line"
+                data-i18n="canvas.abstract_dialog.prompt"></span>
+        <span id="abstract_dialog_candidates"></span>
+      </h4>
+      <h5> <span data-i18n="canvas.abstract_dialog.note"></span> </h5>
+      <div class="abstract_submit_buttons">
+        <button type="button"
+                id="abstract_single_button"
+                data-i18n="[title]canvas.abstract_dialog.single_tt">
+          <span data-i18n="canvas.abstract_dialog.single"></span>
+        </button>
+        <button type="button"
+                id="abstract_all_button"
+                data-i18n="[title]canvas.abstract_dialog.all_tt">
+          <span data-i18n="canvas.abstract_dialog.all"></span>
+        </button>
+        <button type="button"
+                id="abstract_none_button"
+                data-i18n="[title]canvas.abstract_dialog.none_tt">
+          <span data-i18n="canvas.abstract_dialog.none"></span>
+        </button>
+      </div>
+    </dialog>
+    <div style="position: fixed; right: 2%; top: 2%; ">
+      <strong id="canvas_warning" style="display: none; text-align: right; -webkit-user-select: none; cursor: pointer;">!</strong>
+    </div>
+	<div id="hscroll" style="position: fixed; left: 0px; bottom: 0px; border-radius: 0px; width: 10px; height: 5px; visibility: hidden;"></div>
+	<div id="vscroll" style="position: fixed; right: 0px; top: 0px; border-radius: 0px; width: 5px; height: 10px; visibility: hidden;"></div>
+    <script type="text/javascript" src="./pd_canvas.js"></script>
+  </body>
+</html>

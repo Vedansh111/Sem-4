@@ -1,0 +1,149 @@
+#N canvas 369 25 596 536 10;
+#X obj 102 353 cos~;
+#X floatatom 153 156 4 0 200 0 - - -, f 4;
+#X obj 153 179 / 10;
+#X text 153 90 center;
+#X text 153 105 freq. (in;
+#X text 153 120 tenths of;
+#X text 153 135 fundamental);
+#X floatatom 50 164 4 0 0 0 - - -, f 4;
+#X text 26 127 fundamental;
+#X text 26 142 (= mod freq);
+#X text 221 182 index;
+#X text 221 197 (percent);
+#X floatatom 221 218 4 0 500 0 - - -, f 4;
+#X obj 221 287 line~;
+#X obj 181 310 *~;
+#X obj 221 241 / 100;
+#X obj 221 264 pack 0 50;
+#X obj 102 330 +~;
+#X text 189 339 modulating;
+#X text 189 353 oscillator;
+#X obj 103 448 output~;
+#X obj 102 417 hip~;
+#N canvas 122 211 558 609 fft 0;
+#X obj 23 55 inlet~;
+#X obj 210 303 inlet;
+#X obj 27 215 rfft~;
+#X obj 27 248 *~;
+#X obj 58 248 *~;
+#X obj 27 278 sqrt~;
+#X obj 334 200 block~ 4096 1;
+#X obj 27 304 biquad~ 0 0 0 0 1;
+#X text 91 216 Fourier series;
+#X text 96 269 magnitude;
+#X text 94 254 calculate;
+#X text 21 3 This subpatch computes the spectrum of the incoming signal
+with a (rectangular windowed) FFT. FFTs aren't properly introduced
+until much later.;
+#X text 83 61 signal to analyze;
+#X text 195 255 delay two samples;
+#X text 193 273 for better graphing;
+#X obj 292 79 samplerate~;
+#X obj 240 352 metro 500;
+#X obj 240 329 inlet;
+#X text 293 327 toggle to graph repeatedly;
+#X text 264 303 bang to graph once;
+#X obj 27 328 /~ 4096;
+#X obj 292 54 bang~;
+#X msg 211 413 \; pd dsp 1;
+#X obj 292 102 / 4096;
+#X obj 58 135 osc~;
+#X obj 58 163 +~ 1;
+#X obj 28 188 *~;
+#X text 113 138 hanning window;
+#X obj 254 79 0.5;
+#X obj 240 390 tabwrite~ F11-spectrum;
+#X connect 0 0 26 0;
+#X connect 1 0 22 0;
+#X connect 1 0 29 0;
+#X connect 2 0 3 0;
+#X connect 2 0 3 1;
+#X connect 2 1 4 0;
+#X connect 2 1 4 1;
+#X connect 3 0 5 0;
+#X connect 4 0 5 0;
+#X connect 5 0 7 0;
+#X connect 7 0 20 0;
+#X connect 15 0 23 0;
+#X connect 16 0 29 0;
+#X connect 17 0 16 0;
+#X connect 17 0 22 0;
+#X connect 20 0 29 0;
+#X connect 21 0 15 0;
+#X connect 21 0 28 0;
+#X connect 23 0 24 0;
+#X connect 24 0 25 0;
+#X connect 25 0 26 1;
+#X connect 26 0 2 0;
+#X connect 28 0 24 1;
+#X restore 156 417 pd fft;
+#X obj 189 373 bng 18 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X obj 189 394 tgl 18 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
+1;
+#X text 210 393 <-- repeatedly;
+#X text 211 373 <-- graph once;
+#N canvas 0 0 450 300 (subpatch) 0;
+#X array F11-spectrum 259 float 0 black black;
+#X coords 0 0.51 258 -0.008 256 130 1;
+#X restore 324 110 graph;
+#X text 316 242 0;
+#X text 408 252 -- frequency --;
+#X text 553 247 2700;
+#X obj 153 228 *;
+#X obj 153 205 t b f;
+#X obj 181 287 osc~;
+#X obj 102 294 phasor~;
+#X text 19 37 Here's what happens if you just slide the carrier frequency
+around. The spectrum moves up and down all right \, but is only periodic
+at the original period when the center frequency roosts on a harmonic.
+;
+#X text 52 285 carrier;
+#X text 34 299 oscillator;
+#X obj 1 1 cnv 15 445 20 empty \$0-pddp.cnv.header how_not_to_apply_two-cosine_carrier_to_fm
+20 10 1 18 -261139 -33289 0;
+#X obj 407 2 pddp/pddplink http://puredata.info/dev/pddp -text pddp
+;
+#X obj 1 513 cnv 15 445 20 empty \$0-pddp.cnv.footer empty 20 12 0
+14 -233017 -33289 0;
+#N canvas 44 246 494 284 META 0;
+#X text 12 105 WEBSITE http://crca.ucsd.edu/~msp/;
+#X text 12 85 AUTHOR Miller Puckette;
+#X text 12 65 LIBRARY PDDP;
+#X text 12 25 LICENSE SIBSD;
+#X text 12 125 HELP_PATCH_AUTHORS Updated for release 0.37. Jonathan
+Wilkes revised the patch to conform to the PDDP template for Pd version
+0.42.;
+#X text 12 45 DESCRIPTION how not to apply two-cosine carrier to fm
+;
+#X text 12 5 KEYWORDS signal tutorial;
+#X restore 392 515 pd META;
+#N canvas 13 202 428 190 References 0;
+#X obj 1 1 cnv 15 425 20 empty \$0-pddp.cnv.subheading empty 3 12 0
+14 -261139 -33289 0;
+#X text 7 2 frequency modulation- Related Help Documents;
+#X text 19 37 links:;
+#X restore 103 515 pd References;
+#X obj 6 515 pddp/pddplink ../5.reference/pddp/help.pd -text help;
+#X connect 0 0 21 0;
+#X connect 0 0 22 0;
+#X connect 1 0 2 0;
+#X connect 2 0 32 0;
+#X connect 7 0 31 0;
+#X connect 7 0 33 0;
+#X connect 12 0 15 0;
+#X connect 13 0 14 1;
+#X connect 14 0 17 1;
+#X connect 15 0 16 0;
+#X connect 16 0 13 0;
+#X connect 17 0 0 0;
+#X connect 21 0 20 0;
+#X connect 21 0 20 1;
+#X connect 23 0 22 1;
+#X connect 24 0 22 2;
+#X connect 31 0 34 0;
+#X connect 32 0 31 0;
+#X connect 32 1 31 1;
+#X connect 33 0 14 0;
+#X connect 34 0 17 0;

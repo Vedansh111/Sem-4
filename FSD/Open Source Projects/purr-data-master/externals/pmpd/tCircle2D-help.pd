@@ -1,0 +1,39 @@
+#N canvas 603 204 548 565 10;
+#X text 303 9 test circle;
+#X msg 66 157 setX 0;
+#X msg 66 182 setY 0;
+#X msg 66 220 setRmin 0;
+#X msg 67 244 setRmax 1;
+#X text 181 198 center of the circle defining the interactor;
+#X obj 32 408 tCircle2D;
+#X floatatom 32 486 5 0 0 0 - - -;
+#X msg 68 321 position2D 0 0;
+#X floatatom 57 463 5 0 0 0 - - -;
+#X floatatom 83 439 5 0 0 0 - - -;
+#X text 187 320 position of the tested mass;
+#X text 100 464 distance of the mass from the center of the circle
+;
+#X text 125 438 speed of the mass regarding the center of the circle
+;
+#X text 157 221 3 : Minimum Radius;
+#X text 158 244 4 : Maximum Radius;
+#X text 77 488 0/1 according to the position of the mass;
+#X text 173 41 This object should be used for testing a mass position.
+;
+#X text 98 97 message to change parameter / default value / creation
+arg number / description;
+#X text 181 259 minimal and maximal radius of the circle. If the mass
+is outside or inside this circle \, it will not interact with this
+link.;
+#X text 173 58 It receives mass position \, and outputs 0/1 according
+to the position of the mass (1 if the mass is in the circle).;
+#X text 157 156 1 : Center circle X;
+#X text 158 182 2 : Center circle Y;
+#X connect 1 0 6 0;
+#X connect 2 0 6 0;
+#X connect 3 0 6 0;
+#X connect 4 0 6 0;
+#X connect 6 0 7 0;
+#X connect 6 1 9 0;
+#X connect 6 2 10 0;
+#X connect 8 0 6 0;

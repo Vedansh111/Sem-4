@@ -1,0 +1,99 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+nwjsver = 0.28.3
+nwjspkg = nwjs-sdk-v$(nwjsver)-linux
+nwjsdir = nwjs-sdk-v$(nwjsver)-linux
+
+ifeq ("$(shell dpkg-architecture -qDEB_HOST_ARCH)","armhf")
+arch = arm
+nwjsver = 0.27.6
+else ifeq ("$(shell dpkg-architecture -qDEB_HOST_ARCH)","arm64")
+arch = arm64
+nwjsver = 0.23.7
+nwjspkg = nwjs-sdk-without-nacl-v$(nwjsver)-linux
+else ifeq ("$(shell dpkg-architecture -qDEB_HOST_ARCH)","amd64")
+arch = x64
+else
+arch = ia32
+endif
+
+# Installation prefix. This must be something other than /usr if you want to
+# install Purr Data alongside Pd-L2Ork. Note that some items such as desktop
+# files and icons will still be installed under /usr so that the system finds
+# them, but they will be renamed to prevent name clashes with files from the
+# pd-l2ork package.
+prefix = /opt/purr-data
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+
+override_dh_auto_clean:
+
+# This runs too late, 'make check' then fails, probably due to our meddling
+# with the directory layout, executable names, etc., during 'make install'.
+# Instead we invoke 'make check' right after the build, see below.
+override_dh_auto_test:
+
+override_dh_auto_build:
+# Copy the nw.js sources to where purr-data wants them.
+	@echo "DEB_HOST_ARCH = $(shell dpkg-architecture -qDEB_HOST_ARCH)"
+	tar -xf debian/nwjs/$(nwjspkg)-$(arch).tar.gz && rm -rf pd/nw/nw && mv $(nwjsdir)-$(arch) pd/nw/nw
+# Make sure that the html docs in packages/gendoc are current so that we don't
+# accidentally try to rebuild them.
+	cd packages/gendoc && touch *-Linux*.html
+	cd l2ork_addons && (export V=0 inst_dir=$(prefix); ./tar_em_up.sh -Bn)
+	make check prefix=$(prefix)
+
+override_dh_auto_install:
+	mkdir -p debian/purr-data && mv packages/linux_make/build/* debian/purr-data
+# Create a link to the executable.
+	mkdir -p debian/purr-data/usr/bin && ln -sf $(prefix)/bin/pd-l2ork debian/purr-data/usr/bin/purr-data
+# Create links to the include and lib directories.
+	mkdir -p debian/purr-data/usr/include && ln -sf $(prefix)/include/pd-l2ork debian/purr-data/usr/include/purr-data
+	mkdir -p debian/purr-data/usr/lib && ln -sf $(prefix)/lib/pd-l2ork debian/purr-data/usr/lib/purr-data
+# Remove some unneeded files.
+	cd debian/purr-data/ && rm -rf Makefile README.txt etc usr/share/emacs
+	cd debian/purr-data$(prefix)/lib/pd-l2ork/extra && rm -rf */*.pd_linux_o */*.la
+ifeq ($(arch),ia32)
+# This causes trouble in 32 bit builds (64 bit executable in the 32 bit nw.js distribution?), remove it.
+	cd debian/purr-data$(prefix)/lib/pd-l2ork && rm -rf bin/nw/minidump_stackwalk
+endif
+ifeq ($(arch),arm64)
+# Same issue in arm64 builds.
+	cd debian/purr-data$(prefix)/lib/pd-l2ork && rm -rf bin/nw/minidump_stackwalk
+endif
+# Add the bash completion file again, and edit it accordingly.
+	mkdir -p debian/purr-data/etc/bash_completion.d
+	sed -e 's/pd-l2ork/purr-data/g' < scripts/bash_completion/pd-l2ork > debian/purr-data/etc/bash_completion.d/purr-data
+# Edit the library paths in the default user.settings file.
+	cd debian/purr-data$(prefix)/lib/pd-l2ork && sed -e "s!/usr/lib/pd-l2ork!$(prefix)/lib/pd-l2ork!g" -i default.settings
+# Sanitize permissions.
+	cd debian/purr-data && chmod -R go-w * && chmod -R a+r * && chmod a-x .$(prefix)/lib/pd-l2ork/default.settings
+	find debian/purr-data$(prefix)/lib/pd-l2ork/bin/nw -executable -not -type d | xargs chmod a+x
+	find debian/purr-data -executable -name '*.pd_linux' | xargs chmod a-x
+	find debian/purr-data -executable -name '*.pd' | xargs chmod a-x
+	find debian/purr-data -executable -name '*.txt' | xargs chmod a-x
+	find debian/purr-data -executable -name '*.aif*' | xargs chmod a-x
+	find debian/purr-data -type d | xargs chmod a+x
+
+# NOTE: Older systems use dh_pysupport instead of dh_python2. See
+# http://deb.li/dhs2p.
+override_dh_python2:
+	dh_python2 -n -Xxmlrpc-test.py
+
+override_dh_compress:
+	dh_compress -X.pd -X.wav -X.aiff -X.txt -X.md
+
+override_dh_strip:
+	dh_strip -Xbin/nw
+
+# Supply some options to get rid of a gazillion of warnings about shared
+# library files which are really externals.
+override_dh_shlibdeps:
+	dh_shlibdeps --dpkg-shlibdeps-params="--ignore-missing-info --warnings=0"

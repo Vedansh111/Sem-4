@@ -1,0 +1,28 @@
+#N canvas 739 461 450 381 12;
+#X obj 26 20 inlet;
+#X obj 149 134 sig~;
+#X obj 149 189 snapshot~;
+#X obj 26 76 t b b a b;
+#X msg 237 108 dsp 1;
+#X obj 237 137 send pd;
+#X obj 46 116 switch~;
+#X obj 26 142 t b b;
+#X msg 26 171 dsp 0;
+#X obj 26 200 send pd;
+#X text 77 23 convert a leftmost signal output to a float. Incoming
+float is converted to leftmost signal inlet. A single block is computed
+to generate the float output.;
+#X obj 149 218 outlet;
+#X obj 149 160 \$@;
+#X connect 0 0 3 0;
+#X connect 1 0 12 0;
+#X connect 2 0 11 0;
+#X connect 3 0 7 0;
+#X connect 3 1 6 0;
+#X connect 3 2 1 0;
+#X connect 3 3 4 0;
+#X connect 4 0 5 0;
+#X connect 7 0 8 0;
+#X connect 7 1 2 0;
+#X connect 8 0 9 0;
+#X connect 12 0 2 0;

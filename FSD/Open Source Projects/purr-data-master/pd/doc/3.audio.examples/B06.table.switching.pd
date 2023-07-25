@@ -1,0 +1,151 @@
+#N canvas 300 48 684 470 10;
+#N canvas 0 0 450 300 (subpatch) 0;
+#X array waveshape15a 131 float 1 black black;
+#A 0 0.847385 0.847385 0.847385 0.847385 0.847385 0.847385 0.847385
+0.847385 0.847385 0.847385 0.847385 0.847385 0.847385 0.847385 0.863077
+0.863077 0.863077 0.863077 0.863077 0.863077 0.863077 0.863077 0.863077
+0.863077 0.863077 0.863077 0.863077 0.863077 0.863077 0.863077 0.863077
+0.863077 0.863077 0.863077 0.863077 0.863077 0.831692 0.847385 0.847385
+0.847385 0.847385 0.847385 0.847385 0.847385 0.847385 0.847385 0.847385
+0.847385 0.847385 0.847385 0.847385 0.847385 0.847385 0.847385 0.847385
+0.847385 0.863077 0.847385 0.847385 0.847385 0.847385 0.847385 0.847385
+-0.800308 -0.784615 -0.784615 -0.784615 -0.784615 -0.784615 -0.784615
+-0.784615 -0.784615 -0.784615 -0.784615 -0.784615 -0.784615 -0.784615
+-0.784615 -0.784615 -0.784615 -0.784615 -0.784615 -0.784615 -0.784615
+-0.784615 -0.784615 -0.784615 -0.784615 -0.784615 -0.784615 -0.784615
+-0.784615 -0.784615 -0.784615 -0.768923 -0.784615 -0.784615 -0.784615
+-0.784615 -0.784615 -0.784615 -0.784615 -0.784615 -0.784615 -0.784615
+-0.784615 -0.784615 -0.784615 -0.768923 -0.784615 -0.784615 -0.784615
+-0.784615 -0.784615 -0.784615 -0.784615 -0.784615 -0.784615 -0.784615
+-0.784615 -0.784615 -0.784615 -0.784615 -0.784615 -0.800308 -0.800308
+-0.800308 -0.800308 -0.800308 -0.800308 -0.800308;
+#X coords 0 1.02 130 -1.02 258 130 1;
+#X restore 405 74 graph;
+#X floatatom 91 266 0 0 100 0 - - -;
+#N canvas 159 26 532 285 output 0;
+#X obj 338 160 t b;
+#X obj 338 110 f;
+#X obj 338 60 inlet;
+#X text 344 29 mute;
+#X obj 338 185 f;
+#X msg 426 180 0;
+#X msg 338 85 bang;
+#X obj 338 135 moses 1;
+#X obj 397 110 moses 1;
+#X obj 83 148 dbtorms;
+#X obj 397 85 r master-lvl;
+#X obj 83 42 r master-lvl;
+#X obj 338 210 s master-lvl;
+#X obj 20 155 inlet~;
+#X obj 199 41 inlet;
+#X text 199 18 level;
+#X obj 199 105 s master-lvl;
+#X msg 96 65 set \$1;
+#X obj 96 90 outlet;
+#X msg 214 65 \; pd dsp 1;
+#X obj 83 198 line~;
+#X obj 20 207 *~;
+#X obj 20 232 dac~;
+#X obj 83 173 pack 0 50;
+#X text 20 132 audio;
+#X text 96 114 show level;
+#X obj 426 155 t b;
+#X obj 20 181 hip~ 1;
+#X connect 0 0 4 0;
+#X connect 1 0 7 0;
+#X connect 2 0 6 0;
+#X connect 4 0 12 0;
+#X connect 5 0 12 0;
+#X connect 6 0 1 0;
+#X connect 7 0 0 0;
+#X connect 7 1 26 0;
+#X connect 8 1 4 1;
+#X connect 9 0 23 0;
+#X connect 10 0 1 1;
+#X connect 10 0 8 0;
+#X connect 11 0 9 0;
+#X connect 11 0 17 0;
+#X connect 13 0 27 0;
+#X connect 14 0 16 0;
+#X connect 14 0 19 0;
+#X connect 17 0 18 0;
+#X connect 20 0 21 1;
+#X connect 21 0 22 0;
+#X connect 21 0 22 1;
+#X connect 23 0 20 0;
+#X connect 26 0 5 0;
+#X connect 27 0 21 0;
+#X restore 66 288 pd output;
+#X msg 117 267 MUTE;
+#N canvas 0 0 450 300 (subpatch) 0;
+#X array waveshape15b 131 float 1 black black;
+#A 0 -0.659077 -0.643385 -0.643385 -0.627692 -0.612 -0.612 -0.596308
+-0.596308 -0.580615 -0.580615 -0.580615 -0.580615 -0.580615 -0.580615
+-0.580615 -0.596308 -0.596308 -0.596308 -0.596308 -0.596308 -0.596308
+-0.596308 -0.596308 -0.580615 -0.580615 -0.580615 -0.580615 -0.580615
+-0.580615 -0.580615 -0.580615 -0.564923 -0.549231 -0.549231 -0.533538
+-0.517846 -0.517846 -0.517846 -0.517846 -0.517846 -0.517846 -0.517846
+-0.517846 -0.533538 -0.549231 -0.580615 -0.580615 0.847385 0.847385
+0.847385 0.847385 0.847385 0.847385 0.847385 0.847385 0.847385 0.863077
+0.847385 0.847385 0.847385 0.847385 0.847385 0.847385 -0.800308 -0.784615
+-0.784615 -0.784615 -0.784615 -0.784615 -0.784615 -0.784615 -0.784615
+-0.784615 -0.784615 -0.784615 -0.784615 -0.784615 -0.784615 -0.784615
+-0.784615 -0.784615 -0.784615 -0.784615 -0.784615 -0.784615 -0.784615
+-0.784615 -0.784615 -0.784615 -0.784615 -0.784615 -0.784615 -0.784615
+-0.784615 -0.768923 -0.784615 -0.784615 -0.784615 -0.784615 -0.784615
+-0.784615 -0.784615 -0.784615 -0.784615 -0.784615 -0.784615 -0.784615
+-0.784615 -0.768923 -0.784615 -0.784615 -0.784615 -0.784615 -0.784615
+-0.784615 -0.784615 -0.784615 -0.784615 -0.784615 -0.784615 -0.784615
+-0.784615 -0.784615 -0.784615 -0.800308 -0.800308 -0.800308 -0.800308
+-0.800308 -0.800308 -0.800308 ;
+#X coords 0 1.02 130 -1.02 258 130 1;
+#X restore 405 229 graph;
+#X obj 66 235 tabosc4~ waveshape15a;
+#X obj 66 147 sig~ 110;
+#X msg 91 176 set waveshape15a;
+#X msg 92 205 set waveshape15b;
+#X text 19 37 During a performance you're unlikely to want to draw
+or recalculate wavetables on the fly \, because you don't want to give
+Pd computationally intensive atomic tasks that could make Pd miss a
+DAC deadline. Instead \, use "set" mesages to switch tabosc~ or tabread4~
+between pre-prepared tables. Indeed \, you will eventually want to
+save screen space by throwing all your wavetables in a subpatch somewhere.
+;
+#X obj 102 356 table waveshape15c 131;
+#X text 20 382 You would use this if you want to include one or more
+arrays in an abstraction. In this invocation you can't save the state
+of the array--instead \, juts read it in from a file or calculate it
+at startup.;
+#X obj 1 1 cnv 15 445 20 empty \$0-pddp.cnv.header switching_between_tables
+20 10 1 18 -261139 -33289 0;
+#X obj 407 2 pddp/pddplink http://puredata.info/dev/pddp -text pddp
+;
+#X text 19 323 There's also a [text] object hook so that you can have
+arrays with parametrizable names and sizes:;
+#X obj 1 448 cnv 15 445 20 empty \$0-pddp.cnv.footer empty 20 12 0
+14 -233017 -33289 0;
+#N canvas 44 246 494 284 META 0;
+#X text 12 125 WEBSITE http://crca.ucsd.edu/~msp/;
+#X text 12 105 AUTHOR Miller Puckette;
+#X text 12 85 LIBRARY PDDP;
+#X text 12 45 LICENSE SIBSD;
+#X text 12 145 HELP_PATCH_AUTHORS Updated for release 0.34. Jonathan
+Wilkes revised the patch to conform to the PDDP template for Pd version
+0.42.;
+#X text 12 65 DESCRIPTION switching between tables;
+#X text 12 25 KEYWORDS signal array tutorial;
+#X restore 392 450 pd META;
+#N canvas 13 202 428 190 References 0;
+#X obj 1 1 cnv 15 425 20 empty \$0-pddp.cnv.subheading empty 3 12 0
+14 -261139 -33289 0;
+#X text 7 2 switching tables- Related Help Documents;
+#X text 19 37 links:;
+#X restore 103 450 pd References;
+#X obj 6 450 pddp/pddplink ../5.reference/pddp/help.pd -text help;
+#X connect 1 0 2 1;
+#X connect 2 0 1 0;
+#X connect 3 0 2 2;
+#X connect 5 0 2 0;
+#X connect 6 0 5 0;
+#X connect 7 0 5 0;
+#X connect 8 0 5 0;

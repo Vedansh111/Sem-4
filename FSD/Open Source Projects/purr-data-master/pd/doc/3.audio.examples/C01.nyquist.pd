@@ -1,0 +1,89 @@
+#N canvas 430 25 448 577 10;
+#N canvas 0 0 450 300 (subpatch) 0;
+#X array table24 259 float 0 black black;
+#X coords 0 1.02 258 -1.02 258 130 1;
+#X restore 24 358 graph;
+#X obj 24 232 line~;
+#X msg 24 181 500 \, 1423 4000;
+#X floatatom 32 206 5 0 0 0 - - -, f 5;
+#X text 21 499 Synthesis techniques vary in their tendency to make
+foldover. For higher pitched sounds you'll want to try out relatively
+folvover-resistant ones.;
+#X obj 24 286 output~;
+#X obj 182 232 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#N canvas 0 0 618 384 make-tab 0;
+#X obj 13 28 inlet;
+#X obj 69 28 inlet;
+#X obj 153 28 inlet;
+#X obj 225 29 inlet;
+#X msg 69 176 \; table24 sinesum 256 1 1 1 1 0 0 0 0 1 0 0 0 0 0 0
+1 0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 1 \, normalize
+0.4;
+#X msg 13 277 \; table24 sinesum 256 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 \, normalize
+0.2;
+#X msg 153 101 \; table24 const 0 \, 0 1 1 1 1 1;
+#X msg 225 58 \; table24 const 0;
+#X obj 82 146 loadbang;
+#X connect 0 0 5 0;
+#X connect 1 0 4 0;
+#X connect 2 0 6 0;
+#X connect 3 0 7 0;
+#X connect 8 0 4 0;
+#X restore 182 313 pd make-tab;
+#X obj 203 252 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X obj 224 272 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X obj 245 292 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X text 201 229 sine;
+#X text 221 249 complex;
+#X text 241 269 rectangle;
+#X text 263 290 clear;
+#X obj 24 259 tabosc4~ table24;
+#X text 21 37 WARNING: PLAY THIS QUIETLY TO AVOID UNPLEASANTNESS AND
+POSSIBLE EAR DAMAGE.;
+#X text 21 68 Foldover occurs when you synthesize frequencies greater
+than the Nyquist frequency (half the sample rate). In this example
+\, the fundamental only reaches 1423 \, but the tables contain high
+partials. As the partials sweep upward you hear them reflect off the
+Nyquist frequency. Also \, partials can come into contact with each
+other causing beating. The value of 1423 was chosen to make the beating
+effect especially strong if you're running at a sample rate of 44100
+(the usual one.);
+#X text 177 206 waveforms:;
+#X obj 1 1 cnv 15 445 20 empty \$0-pddp.cnv.header the_nyquist_theorem_and_foldover
+20 10 1 18 -261139 -33289 0;
+#X obj 407 2 pddp/pddplink http://puredata.info/dev/pddp -text pddp
+;
+#X obj 1 555 cnv 15 445 20 empty \$0-pddp.cnv.footer empty 20 12 0
+14 -233017 -33289 0;
+#N canvas 44 246 494 284 META 0;
+#X text 12 105 WEBSITE http://crca.ucsd.edu/~msp/;
+#X text 12 85 AUTHOR Miller Puckette;
+#X text 12 65 LIBRARY PDDP;
+#X text 12 25 LICENSE SIBSD;
+#X text 12 125 HELP_PATCH_AUTHORS Updated for release 0.37. Jonathan
+Wilkes revised the patch to conform to the PDDP template for Pd version
+0.42.;
+#X text 12 45 DESCRIPTION the nyquist theorem and foldover;
+#X text 12 5 KEYWORDS signal tutorial;
+#X restore 392 557 pd META;
+#N canvas 13 202 428 190 References 0;
+#X obj 1 1 cnv 15 425 20 empty \$0-pddp.cnv.subheading empty 3 12 0
+14 -261139 -33289 0;
+#X text 19 37 links:;
+#X text 7 2 nyquist theorem- Related Help Documents;
+#X restore 103 557 pd References;
+#X obj 6 557 pddp/pddplink ../5.reference/pddp/help.pd -text help;
+#X connect 1 0 15 0;
+#X connect 2 0 1 0;
+#X connect 3 0 1 0;
+#X connect 6 0 7 0;
+#X connect 8 0 7 1;
+#X connect 9 0 7 2;
+#X connect 10 0 7 3;
+#X connect 15 0 5 0;
+#X connect 15 0 5 1;

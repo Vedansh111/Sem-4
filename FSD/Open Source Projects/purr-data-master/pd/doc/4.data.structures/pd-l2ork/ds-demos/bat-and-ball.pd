@@ -1,0 +1,64 @@
+#N struct ball-and-bat float x float y;
+#N canvas 200 61 624 577 10;
+#X obj 132 12 struct ball-and-bat float x float y;
+#X scalar ball-and-bat -79 79 \;;
+#X obj 132 33 route displace;
+#X obj 132 54 unpack p f;
+#X obj 189 106 t a b;
+#X msg 216 133 clear;
+#X obj 189 163 pipe 100;
+#X obj 189 184 * 50;
+#X msg 189 205 1000 \$1;
+#X obj 189 226 -;
+#X floatatom 127 250 5 0 0 0 - - -, f 5;
+#X obj 189 268 line;
+#X msg 188 247 0 \, 100 \$1;
+#X obj 289 209 del;
+#X obj -45 328 loadbang;
+#X obj 289 251 f;
+#X msg 289 272 0 \$1;
+#X obj 293 187 + 250;
+#X obj 150 80 moses 1;
+#X obj -45 453 draw path m 22.9167 966.945 c -5.21812 0 -8.33333 3.13916
+-8.33333 8.33333 0 4.16666 8.33333 10.4166 12.5 14.5833 8.33312 8.3334
+22.0911 15.8413 35.4167 29.1667 l 12.5 12.5 -2.08334 2.0833 c 0 2.0833
+2.08334 4.1667 4.16667 4.1667 l 4.16667 -4.1667 4.16666 -4.1667 c 0
+-2.0833 -2.08333 -4.1666 -4.16666 -4.1666 l -2.08334 2.0833 -12.5 -12.5
+c -11.9306 -11.9304 -20.8335 -27.0833 -29.1667 -35.4167 -4.16667 -4.16666
+-10.4167 -12.5 -14.5833 -12.5 z;
+#X obj -45 391 loadbang;
+#X obj 260 339 loadbang;
+#X msg 250 318 transform translate \$1 0;
+#X msg 260 360 stroke-width 2 \, stroke black \, fill none;
+#X msg -45 412 transform translate 590 -1800 rotate 32.67 65 1010 scale
+2 \, stroke black \, fill none;
+#X msg -45 349 stroke-dasharray 5 5 \, stroke black \, fill none;
+#X obj 250 381 draw circle 20 0 20;
+#X obj -45 370 draw rect 225 205 -35 -35;
+#X connect 0 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 1 18 0;
+#X connect 4 0 6 0;
+#X connect 4 1 5 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;
+#X connect 9 0 12 0;
+#X connect 9 0 10 0;
+#X connect 9 0 15 1;
+#X connect 9 0 17 0;
+#X connect 11 0 22 0;
+#X connect 12 0 11 0;
+#X connect 13 0 15 0;
+#X connect 14 0 25 0;
+#X connect 15 0 16 0;
+#X connect 16 0 11 0;
+#X connect 17 0 13 0;
+#X connect 18 1 4 0;
+#X connect 20 0 24 0;
+#X connect 21 0 23 0;
+#X connect 22 0 26 0;
+#X connect 23 0 26 0;
+#X connect 24 0 19 0;
+#X connect 25 0 27 0;

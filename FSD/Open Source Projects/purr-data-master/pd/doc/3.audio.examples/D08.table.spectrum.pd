@@ -1,0 +1,113 @@
+#N canvas 344 37 624 433 10;
+#N canvas 0 0 450 300 (subpatch) 0;
+#X array spectrum-tab 127 float 1 black black;
+#A 0 48.5713 48.5713 48.5713 48.2142 48.2142 48.2142 48.2142 48.2142
+48.2142 48.2142 48.2142 48.2142 48.2142 48.5713 48.5713 48.9284 48.9284
+48.9284 48.9284 48.9284 48.9284 48.9284 48.5713 48.5713 48.5713 48.2142
+48.2142 47.4999 47.1427 46.4285 46.4285 46.0713 46.0713 46.0713 45.7142
+44.9999 44.6428 43.5713 43.2142 42.8571 42.4999 41.7856 38.2143 36.7857
+34.6429 31.7857 30.3572 29.6429 28.5715 27.8572 26.7858 25.3572 25.7144
+23.9287 23.9287 23.5715 23.5715 23.5715 23.5715 23.2144 23.2144 23.2144
+22.8573 22.8573 23.5715 23.9287 23.5715 26.0715 26.0715 48.5713 48.5713
+48.5713 48.2142 47.4999 46.7856 46.7856 17.143 16.4287 16.0716 16.4287
+14.643 13.5716 13.5716 40.7142 40.7142 40.7142 14.643 13.2145 12.8573
+12.5002 12.5002 24.2858 29.6429 30.7143 16.4287 10.7145 11.7859 10.7145
+24.2858 23.5715 17.143 13.9288 9.64309 6.78597 5.71455 5.71455 4.28599
+3.92885 3.92885 3.92885 1.42887 1.42887 1.42887 1.07174 1.07174 1.07174
+0.714596 0.714596 0.714596 0.714596 0.714596 1.07174 1.07174 1.07174
+1.07174 0.714286 0.357143;
+#X coords 0 50 126 0 300 140 1;
+#X restore 284 92 graph;
+#N canvas 98 16 694 474 oscbank 0;
+#X obj 36 53 spectrum-partial 1;
+#X obj 36 79 spectrum-partial 2;
+#X obj 36 105 spectrum-partial 3;
+#X obj 36 131 spectrum-partial 4;
+#X obj 36 157 spectrum-partial 5;
+#X obj 36 183 spectrum-partial 6;
+#X obj 36 209 spectrum-partial 7;
+#X obj 36 235 spectrum-partial 8;
+#X obj 36 261 spectrum-partial 9;
+#X obj 36 287 spectrum-partial 10;
+#X obj 216 53 spectrum-partial 11;
+#X obj 122 382 loadbang;
+#X obj 122 407 metro 30;
+#X obj 122 433 s poll-table;
+#X text 107 21 This is the bank of oscillators--open one to see:;
+#X text 72 345 And here we send bangs to "poll-table" needed by the
+abstraction.;
+#X obj 216 79 spectrum-partial 12;
+#X obj 216 105 spectrum-partial 13;
+#X obj 216 131 spectrum-partial 14;
+#X obj 216 157 spectrum-partial 15;
+#X obj 216 183 spectrum-partial 16;
+#X obj 216 209 spectrum-partial 17;
+#X obj 216 235 spectrum-partial 18;
+#X obj 215 261 spectrum-partial 19;
+#X obj 215 287 spectrum-partial 20;
+#X obj 395 53 spectrum-partial 21;
+#X obj 395 78 spectrum-partial 22;
+#X obj 395 104 spectrum-partial 23;
+#X obj 395 130 spectrum-partial 24;
+#X obj 395 156 spectrum-partial 25;
+#X obj 395 182 spectrum-partial 26;
+#X obj 395 207 spectrum-partial 27;
+#X obj 396 234 spectrum-partial 28;
+#X obj 395 260 spectrum-partial 29;
+#X obj 395 287 spectrum-partial 30;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;
+#X restore 22 251 pd oscbank;
+#X obj 22 316 catch~ sum-bus;
+#X obj 22 153 s pitch;
+#X floatatom 22 125 4 0 0 0 - - -, f 4;
+#X floatatom 22 187 4 0 0 0 - - -, f 4;
+#X obj 22 215 s whammybar;
+#N canvas 0 0 650 341 table-setup 0;
+#X obj 39 227 loadbang;
+#X msg 39 261 \; spectrum-tab xlabel -5 0 12 24 36 48 60 72 84 96 108
+120;
+#X text 82 60 comment;
+#X connect 0 0 1 0;
+#X restore 22 283 pd table-setup;
+#X msg 374 279 \; spectrum-tab const 0;
+#X text 19 36 In this array \, you can draw a spectral envelope that
+will be synthesized by an oscillator bank. Each oscillator in the bank
+computes its own frequency and uses it to look up amplitude from the
+array.;
+#X text 98 251 <-- the oscillator bank;
+#X text 55 125 <-- pitch;
+#X text 59 188 <-- left or right shift (normally 0);
+#X text 120 316 <-- here we just collect the sum of all the partials
+which are computed in "oscbank".;
+#X text 418 258 CLEAR;
+#X text 123 283 <-- make the number labels;
+#X obj 22 346 output~;
+#X obj 1 1 cnv 15 445 20 empty \$0-pddp.cnv.header drawable_spectra
+20 10 1 18 -261139 -33289 0;
+#X obj 407 2 pddp/pddplink http://puredata.info/dev/pddp -text pddp
+;
+#X obj 1 411 cnv 15 445 20 empty \$0-pddp.cnv.footer empty 20 12 0
+14 -233017 -33289 0;
+#N canvas 44 246 494 284 META 0;
+#X text 12 105 WEBSITE http://crca.ucsd.edu/~msp/;
+#X text 12 85 AUTHOR Miller Puckette;
+#X text 12 65 LIBRARY PDDP;
+#X text 12 25 LICENSE SIBSD;
+#X text 12 125 HELP_PATCH_AUTHORS Updated for release 0.37. Jonathan
+Wilkes revised the patch to conform to the PDDP template for Pd version
+0.42.;
+#X text 12 45 DESCRIPTION drawable spectra;
+#X text 12 5 KEYWORDS signal array tutorial;
+#X restore 392 413 pd META;
+#N canvas 13 202 428 190 References 0;
+#X obj 1 1 cnv 15 425 20 empty \$0-pddp.cnv.subheading empty 3 12 0
+14 -261139 -33289 0;
+#X text 7 2 drawable spectra- Related Help Documents;
+#X text 19 37 links:;
+#X restore 103 413 pd References;
+#X obj 6 413 pddp/pddplink ../5.reference/pddp/help.pd -text help;
+#X connect 2 0 16 0;
+#X connect 2 0 16 1;
+#X connect 4 0 3 0;
+#X connect 5 0 6 0;

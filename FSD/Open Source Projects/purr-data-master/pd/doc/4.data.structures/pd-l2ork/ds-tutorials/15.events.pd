@@ -1,0 +1,54 @@
+#N struct drawtut-events float x float y;
+#N canvas 1 25 591 620 10;
+#X scalar drawtut-events 54 255 \;;
+#X text 1 1 __________________________________;
+#X text 0 1 New Drawing Commands: mouse events;
+#X obj 53 117 loadbang;
+#X text 53 400 The following events are reported:;
+#X symbolatom 53 227 10 0 0 1 event_type - -, f 10;
+#X obj 53 87 struct drawtut-events float x float y;
+#X msg 341 164 fill white;
+#X obj 303 117 loadbang;
+#X obj 53 204 unpack s;
+#X msg 53 140 fill blue;
+#X msg 143 140 mouseover 1 \, mouseout 1;
+#X obj 143 117 loadbang;
+#X obj 303 206 unpack s;
+#X symbolatom 303 227 10 0 0 1 event_type - -, f 10;
+#X text 130 272 <- mouse over these shapes ->;
+#X text 53 329 When you move to the center of the center \, you generate
+a "mouseout" event. This is because the circle has no fill color. Once
+you set a fill color-- even white-- then the middle will count as part
+of the shape.;
+#X text 53 465 mouseover - mouse enters a shape;
+#X text 53 485 mouseout - mouse leaves a shape;
+#X text 53 505 mousemove - mouse moves inside a shape;
+#X text 53 425 mousedown - mouse button is pressed;
+#X text 53 445 mouseup - mousebutton is released;
+#X msg 303 140 stroke-width 20 \, stroke black \, fill none;
+#X text 53 43 When the user mouses over or clicks a shape a message
+gets sent to the outlet of the corresponding [draw] object.;
+#X obj 303 185 draw circle 25 300 30;
+#X obj 53 173 draw rect 60 60 0 0;
+#N canvas 290 275 450 300 META 0;
+#X text 16 26 LICENSE SIBSD;
+#X text 16 66 AUTHOR Jonathan Wilkes;
+#X text 16 86 HELP_PATCH_AUTHORS Jonathan Wilkes;
+#X text 16 46 DESCRIPTION mouse events for the [draw] command;
+#X text 16 6 KEYWORDS tutorial data_structure draw gui;
+#X restore 506 578 pd META;
+#X text 53 565 drag - convenience function for click-dragging;
+#X text 53 525 mouseenter - mouse enters a group or shape;
+#X text 53 545 mouseleave - mouse enters a group or shape;
+#X connect 3 0 10 0;
+#X connect 7 0 24 0;
+#X connect 8 0 22 0;
+#X connect 9 0 5 0;
+#X connect 10 0 25 0;
+#X connect 11 0 24 0;
+#X connect 11 0 25 0;
+#X connect 12 0 11 0;
+#X connect 13 0 14 0;
+#X connect 22 0 24 0;
+#X connect 24 0 13 0;
+#X connect 25 0 9 0;

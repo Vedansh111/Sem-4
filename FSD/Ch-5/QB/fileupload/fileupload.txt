@@ -1,0 +1,3 @@
+multer is a node js midddleware for handling multipart/form-data which is use for uploding files middleware is in node js it is a function that receives a request and response object were a user from the client side makes any request there are two uses of middleware in node js
+1 - to send the response based on the request comming from the user
+2 - to change or modify a request object and send it to the next middleware we can add as many middleware as we wish in request response cycle multer adds a body object and a file object to the request object the body object conatins the value of the textfield of the form the file or file object the files upload via form

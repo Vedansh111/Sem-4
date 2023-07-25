@@ -1,0 +1,28 @@
+import React from 'react';
+import Ex3 from './components/Ex3'
+
+export default function App() {
+
+    const car=[
+        {
+            name:"Honda City",
+            brand:"Honda",
+            price:"8 lakhs"
+        },
+        {
+            name: "Toyota Corolla",
+            brand: "Toyota",
+            price: "10.5 lakhs"
+        }
+    ]    
+    return (
+        <>
+            {/* <Ex3 car="Swift" brand="Maruti Suzuki" price="7 lakhs"/>
+            <Ex3 car="Honda City" brand="Honda" price="8 lakhs"/>*/}
+
+            <Ex3 car={car}/>
+        </>
+    );
+
+}
+

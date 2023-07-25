@@ -1,0 +1,16 @@
+import React from 'react';
+import Task2 from './components/Task2'
+
+export default function App() {
+
+        
+    return (
+        <div style={{display:"inline-flex"}}>
+            <Task2 name="ABC" img="https://media.istockphoto.com/id/1146517111/photo/taj-mahal-mausoleum-in-agra.jpg?s=612x612&w=0&k=20&c=vcIjhwUrNyjoKbGbAQ5sOcEzDUgOfCsm9ySmJ8gNeRk=" price="20 lakh" des="India" />
+            <Task2 name="BCD" img="https://media.istockphoto.com/id/1146517111/photo/taj-mahal-mausoleum-in-agra.jpg?s=612x612&w=0&k=20&c=vcIjhwUrNyjoKbGbAQ5sOcEzDUgOfCsm9ySmJ8gNeRk=" price="80 lakh" des="Canada" />
+            <Task2 name="CDE" img="https://media.istockphoto.com/id/1146517111/photo/taj-mahal-mausoleum-in-agra.jpg?s=612x612&w=0&k=20&c=vcIjhwUrNyjoKbGbAQ5sOcEzDUgOfCsm9ySmJ8gNeRk=" price="3 cr" des="USA" />
+        </div>
+    );
+
+}
+

@@ -1,0 +1,80 @@
+#N canvas 381 30 448 536 10;
+#X floatatom 22 138 5 0 150 0 - #0-pitch -, f 5;
+#X obj 22 185 phasor~;
+#X obj 37 343 +~;
+#X floatatom 52 318 5 0 100 0 - #0-offset -, f 5;
+#X floatatom 38 214 5 0 0 0 - #0-speed -, f 5;
+#X floatatom 53 265 5 0 100 0 - #0-depth -, f 5;
+#X floatatom 47 396 5 0 1000 0 - #0-q -, f 5;
+#X obj 22 418 vcf~;
+#X obj 37 367 tabread4~ mtof;
+#X text 87 396 <-- Q (selectivity);
+#X text 77 176 sawtooth;
+#X text 77 190 oscillator;
+#X text 79 214 <-- sweep speed;
+#X text 103 237 LFO for sweep;
+#X text 95 265 <-- sweep depth;
+#X text 95 318 <-- base center frequency;
+#X text 81 342 add base to sweep;
+#X text 131 367 convert to Hz.;
+#X text 60 137 <-- pitch;
+#X obj 21 449 output~;
+#X obj 22 161 mtof;
+#X obj 38 236 phasor~;
+#X obj 38 290 *~;
+#N canvas 706 247 450 300 startup 0;
+#X obj 85 16 loadbang;
+#X obj 85 40 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X obj 85 59 f \$0;
+#X text 9 257 boxes.;
+#X text 18 209 This subpatch loads initial values in number;
+#X msg 85 83 \; \$1-pitch 48 \; \$1-speed -2 \; \$1-depth 27 \; \$1-offset
+56 \; \$1-q 2;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 2 0 5 0;
+#X restore 289 476 pd startup;
+#X text 19 101 Note the different effects of negative and positive
+sweep speeds.;
+#X obj 1 1 cnv 15 445 20 empty \$0-pddp.cnv.header sweeping_filters
+20 10 1 18 -261139 -33289 0;
+#X obj 407 2 pddp/pddplink http://puredata.info/dev/pddp -text pddp
+;
+#X text 19 37 If you want actively changing center frequencies \, use
+[vcf~] instead of [bp~]. The [vcf~] module takes an audio signal to
+set center frequency. (Q is still set by messages though.) [vcf~] is
+computationally somewhat more expensive than [bp~].;
+#X obj 1 514 cnv 15 445 20 empty \$0-pddp.cnv.footer empty 20 12 0
+14 -233017 -33289 0;
+#N canvas 44 246 494 284 META 0;
+#X text 12 105 WEBSITE http://crca.ucsd.edu/~msp/;
+#X text 12 85 AUTHOR Miller Puckette;
+#X text 12 65 LIBRARY PDDP;
+#X text 12 25 LICENSE SIBSD;
+#X text 12 125 HELP_PATCH_AUTHORS Updated for release 0.39. Jonathan
+Wilkes revised the patch to conform to the PDDP template for Pd version
+0.42.;
+#X text 12 45 DESCRIPTION sweeping filters;
+#X text 12 5 KEYWORDS signal tutorial;
+#X restore 392 516 pd META;
+#N canvas 13 202 428 190 References 0;
+#X obj 1 1 cnv 15 425 20 empty \$0-pddp.cnv.subheading empty 3 12 0
+14 -261139 -33289 0;
+#X text 7 2 sweeping filters- Related Help Documents;
+#X text 19 37 links:;
+#X restore 103 516 pd References;
+#X obj 6 516 pddp/pddplink ../5.reference/pddp/help.pd -text help;
+#X connect 0 0 20 0;
+#X connect 1 0 7 0;
+#X connect 2 0 8 0;
+#X connect 3 0 2 1;
+#X connect 4 0 21 0;
+#X connect 5 0 22 1;
+#X connect 6 0 7 2;
+#X connect 7 0 19 0;
+#X connect 7 0 19 1;
+#X connect 8 0 7 1;
+#X connect 20 0 1 0;
+#X connect 21 0 22 0;
+#X connect 22 0 2 0;
